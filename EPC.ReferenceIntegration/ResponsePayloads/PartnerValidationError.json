@@ -1,0 +1,7 @@
+﻿{
+  "status": "Failed",
+  "result": {
+    "orderDate": "2017-06-02T16:53-08:00",
+    "orderMessage": "The Order failed due to invalid Loan Information"
+  }
+}

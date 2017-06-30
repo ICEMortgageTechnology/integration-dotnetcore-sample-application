@@ -1,0 +1,18 @@
+C:\EVP\Integrations\VendorPlatform\RI\EPC.ReferenceIntegration\EPC.ReferenceIntegration\bin\Debug\netcoreapp1.1\EPC.ReferenceIntegration.deps.json
+C:\EVP\Integrations\VendorPlatform\RI\EPC.ReferenceIntegration\EPC.ReferenceIntegration\bin\Debug\netcoreapp1.1\EPC.ReferenceIntegration.runtimeconfig.json
+C:\EVP\Integrations\VendorPlatform\RI\EPC.ReferenceIntegration\EPC.ReferenceIntegration\bin\Debug\netcoreapp1.1\EPC.ReferenceIntegration.runtimeconfig.dev.json
+C:\EVP\Integrations\VendorPlatform\RI\EPC.ReferenceIntegration\EPC.ReferenceIntegration\bin\Debug\netcoreapp1.1\EPC.ReferenceIntegration.dll
+C:\EVP\Integrations\VendorPlatform\RI\EPC.ReferenceIntegration\EPC.ReferenceIntegration\bin\Debug\netcoreapp1.1\EPC.ReferenceIntegration.pdb
+C:\EVP\Integrations\VendorPlatform\RI\EPC.ReferenceIntegration\EPC.ReferenceIntegration\obj\Debug\netcoreapp1.1\EPC.ReferenceIntegration.csprojResolveAssemblyReference.cache
+C:\EVP\Integrations\VendorPlatform\RI\EPC.ReferenceIntegration\EPC.ReferenceIntegration\obj\Debug\netcoreapp1.1\EPC.ReferenceIntegration.AssemblyInfo.cs
+C:\EVP\Integrations\VendorPlatform\RI\EPC.ReferenceIntegration\EPC.ReferenceIntegration\obj\Debug\netcoreapp1.1\EPC.ReferenceIntegration.dll
+C:\EVP\Integrations\VendorPlatform\RI\EPC.ReferenceIntegration\EPC.ReferenceIntegration\obj\Debug\netcoreapp1.1\EPC.ReferenceIntegration.pdb
+C:\Users\STyagi\Desktop\New folder\EPC.ReferenceIntegration\EPC.ReferenceIntegration\bin\Debug\netcoreapp1.1\EPC.ReferenceIntegration.deps.json
+C:\Users\STyagi\Desktop\New folder\EPC.ReferenceIntegration\EPC.ReferenceIntegration\bin\Debug\netcoreapp1.1\EPC.ReferenceIntegration.runtimeconfig.json
+C:\Users\STyagi\Desktop\New folder\EPC.ReferenceIntegration\EPC.ReferenceIntegration\bin\Debug\netcoreapp1.1\EPC.ReferenceIntegration.runtimeconfig.dev.json
+C:\Users\STyagi\Desktop\New folder\EPC.ReferenceIntegration\EPC.ReferenceIntegration\bin\Debug\netcoreapp1.1\EPC.ReferenceIntegration.dll
+C:\Users\STyagi\Desktop\New folder\EPC.ReferenceIntegration\EPC.ReferenceIntegration\bin\Debug\netcoreapp1.1\EPC.ReferenceIntegration.pdb
+C:\Users\STyagi\Desktop\New folder\EPC.ReferenceIntegration\EPC.ReferenceIntegration\obj\Debug\netcoreapp1.1\EPC.ReferenceIntegration.csprojResolveAssemblyReference.cache
+C:\Users\STyagi\Desktop\New folder\EPC.ReferenceIntegration\EPC.ReferenceIntegration\obj\Debug\netcoreapp1.1\EPC.ReferenceIntegration.AssemblyInfo.cs
+C:\Users\STyagi\Desktop\New folder\EPC.ReferenceIntegration\EPC.ReferenceIntegration\obj\Debug\netcoreapp1.1\EPC.ReferenceIntegration.dll
+C:\Users\STyagi\Desktop\New folder\EPC.ReferenceIntegration\EPC.ReferenceIntegration\obj\Debug\netcoreapp1.1\EPC.ReferenceIntegration.pdb

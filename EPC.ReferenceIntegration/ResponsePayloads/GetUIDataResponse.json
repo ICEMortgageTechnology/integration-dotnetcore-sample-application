@@ -1,0 +1,672 @@
+{
+  "getUIDataResponse": {
+    "inputFields": [
+      {
+        "name": "GDSTYPE",
+        "list": [
+          {
+            "id": 1,
+            "val": "2 to 4 Unit Building",
+            "desc": "2 to 4 Unit Building"
+          },
+          {
+            "id": 2,
+            "val": "5+ Unit Building",
+            "desc": "5+ Unit Building"
+          },
+          {
+            "id": 3,
+            "val": "Apartment",
+            "desc": "Apartment"
+          },
+          {
+            "id": 4,
+            "val": "Attached",
+            "desc": "Attached"
+          },
+          {
+            "id": 5,
+            "val": "Commercial (Non-Residential)",
+            "desc": "Commercial (Non-Residential)"
+          },
+          {
+            "id": 6,
+            "val": "Commercial (other)",
+            "desc": "Commercial (other)"
+          },
+          {
+            "id": 7,
+            "val": "Condominium",
+            "desc": "Condominium"
+          },
+          {
+            "id": 8,
+            "val": "Condotel",
+            "desc": "Condotel"
+          },
+          {
+            "id": 9,
+            "val": "Cooperative",
+            "desc": "Cooperative"
+          },
+          {
+            "id": 10,
+            "val": "Detached",
+            "desc": "Detached"
+          },
+          {
+            "id": 11,
+            "val": "Duplex",
+            "desc": "Duplex"
+          },
+          {
+            "id": 12,
+            "val": "Farm",
+            "desc": "Farm"
+          },
+          {
+            "id": 13,
+            "val": "Healthcare",
+            "desc": "Healthcare"
+          }
+        ]
+      },
+      {
+        "name": "LOAN_PURPOSE",
+        "list": [
+          {
+            "id": 1,
+            "val": "Construction",
+            "desc": "Construction"
+          },
+          {
+            "id": 2,
+            "val": "Construction Permanent",
+            "desc": "Construction Permanent"
+          },
+          {
+            "id": 3,
+            "val": "Purchase",
+            "desc": "Purchase"
+          },
+          {
+            "id": 4,
+            "val": "Refinance",
+            "desc": "Refinance"
+          },
+          {
+            "id": 5,
+            "val": "Second Mortgage",
+            "desc": "Second Mortgage"
+          },
+          {
+            "id": 6,
+            "val": "Other",
+            "desc": "Other"
+          }
+        ]
+      },
+      {
+        "name": "LOAN_TYPE",
+        "list": [
+          {
+            "id": 1,
+            "val": "All In One",
+            "desc": "All In One"
+          },
+          {
+            "id": 2,
+            "val": "Alt QM Agency",
+            "desc": "Alt QM Agency"
+          },
+          {
+            "id": 3,
+            "val": "Alt QM Income",
+            "desc": "Alt QM Income"
+          },
+          {
+            "id": 4,
+            "val": "Alt QM Investor",
+            "desc": "Alt QM Investor"
+          },
+          {
+            "id": 5,
+            "val": "Alt QM Jumbo",
+            "desc": "Alt QM Jumbo"
+          },
+          {
+            "id": 6,
+            "val": "CMBS",
+            "desc": "CMBS"
+          }
+        ]
+      },
+      {
+        "name": "PRODUCTS",
+        "list": [
+          {
+            "id": 1,
+            "val": "Appraisal Update/Inspection of Repairs (FNMA 1004D)",
+            "desc": "Appraisal Update/Inspection of Repairs (FNMA 1004D)"
+          },
+          {
+            "id": 2,
+            "val": "Appraisal Update/Recertification (FNMA 1004D)",
+            "desc": "Appraisal Update/Recertification (FNMA 1004D)"
+          },
+          {
+            "id": 3,
+            "val": "Condo Appraisal (FNMA 1073)",
+            "desc": "Condo Appraisal (FNMA 1073)"
+          },
+          {
+            "id": 4,
+            "val": "Condo FHA (1073)",
+            "desc": "Condo FHA (1073)"
+          },
+          {
+            "id": 5,
+            "val": "Condo FHA Investment (1073, 1007, and 216)",
+            "desc": "Condo FHA Investment (1073, 1007, and 216)"
+          },
+          {
+            "id": 6,
+            "val": "Condo FHA Investment w/Comparable Rent Schedule (1073 and 1007)",
+            "desc": "Condo FHA Investment w/Comparable Rent Schedule (1073 and 1007)"
+          },
+          {
+            "id": 7,
+            "val": "Condo Investment (1073, 1007, and 216)",
+            "desc": "Condo Investment (1073, 1007, and 216)"
+          },
+          {
+            "id": 8,
+            "val": "Condo Investment w/Comparable Rent Sch (1073 and 1007)",
+            "desc": "Condo Investment w/Comparable Rent Sch (1073 and 1007)"
+          },
+          {
+            "id": 9,
+            "val": "Exterior Only Investment (2055, 1007, and 216)",
+            "desc": "Exterior Only Investment (2055, 1007, and 216)"
+          },
+          {
+            "id": 10,
+            "val": "Exterior Only Residential Report (FNMA 2055)",
+            "desc": "Exterior Only Residential Report (FNMA 2055)"
+          },
+          {
+            "id": 11,
+            "val": "FHA Appraisal (FNMA 1004)",
+            "desc": "FHA Appraisal (FNMA 1004)"
+          },
+          {
+            "id": 12,
+            "val": "Multi-Family Appraisal (FNMA 1025)",
+            "desc": "Multi-Family Appraisal (FNMA 1025)"
+          },
+          {
+            "id": 13,
+            "val": "Multi-Family FHA (FNMA 1025)",
+            "desc": "Multi-Family FHA (FNMA 1025)"
+          },
+          {
+            "id": 14,
+            "val": "Single Family FHA Investment (1004, 1007, and 216)",
+            "desc": "Single Family FHA Investment (1004, 1007, and 216)"
+          },
+          {
+            "id": 15,
+            "val": "Single Family FHA Investment w/Comparable Rent Schedule (1004 and 1007)",
+            "desc": "Single Family FHA Investment w/Comparable Rent Schedule (1004 and 1007)"
+          },
+          {
+            "id": 16,
+            "val": "Single Family Investment (1004, 1007, and 216)",
+            "desc": "Single Family Investment (1004, 1007, and 216)"
+          },
+          {
+            "id": 17,
+            "val": "Single Family Investment w/Comparable Rent Sch (1004 and 1007)",
+            "desc": "Single Family Investment w/Comparable Rent Sch (1004 and 1007)"
+          },
+          {
+            "id": 18,
+            "val": "Uniform Residential Appraisal (FNMA 1004)",
+            "desc": "Uniform Residential Appraisal (FNMA 1004)"
+          }
+        ]
+      },
+      {
+        "name": "CLIENTGROUPID",
+        "list": [
+          {
+            "Num": 1,
+            "desc": "Southeast Branch",
+            "val": 297
+          },
+          {
+            "Num": 2,
+            "desc": "Southwest Branch",
+            "val": 296
+          }
+        ]
+      },
+      {
+        "name": "PROPERTY_CHARACTERISTICS",
+        "list": [
+          {
+            "id": 1,
+            "desc": "Golf Course",
+            "val": "Golf Course"
+          },
+          {
+            "id": 2,
+            "desc": "Mountain View",
+            "val": "Mountain View"
+          },
+          {
+            "id": 3,
+            "desc": "Waterfront",
+            "val": "Waterfront"
+          }
+        ]
+      },
+      {
+        "name": "SELECTED_AMC",
+        "list": [
+          {
+            "id": 1,
+            "desc": "EllieFirm Appraisals",
+            "val": 1046761
+          },
+          {
+            "id": 2,
+            "desc": "EVF AMC",
+            "val": 1046913
+          },
+          {
+            "id": 3,
+            "desc": "NonMercury ManualAMCVendor",
+            "val": 1046950
+          },
+          {
+            "id": 4,
+            "desc": "NonMercuryAMCVendor",
+            "val": 1046911
+          }
+        ]
+      },
+      {
+        "name": "OCCUPANTTYPE",
+        "list": [
+          {
+            "id": 1,
+            "desc": "New Construction",
+            "val": "New Construction"
+          },
+          {
+            "id": 2,
+            "desc": "Not Applicable",
+            "val": "Not Applicable"
+          },
+          {
+            "id": 3,
+            "desc": "Owner",
+            "val": "Owner"
+          },
+          {
+            "id": 4,
+            "desc": "Owner's Second Home",
+            "val": "Owner's Second Home"
+          },
+          {
+            "id": 5,
+            "desc": "Tenant",
+            "val": "Tenant"
+          },
+          {
+            "id": 6,
+            "desc": "Vacant",
+            "val": "Vacant"
+          }
+        ]
+      },
+      {
+        "name": "PAYMENTMETHOD",
+        "list": [
+          {
+            "id": 1,
+            "desc": "Check",
+            "val": "Check"
+          },
+          {
+            "id": 2,
+            "desc": "C.O.D.",
+            "val": "C.O.D."
+          },
+          {
+            "id": 3,
+            "desc": "Money order",
+            "val": "Money order"
+          },
+          {
+            "id": 4,
+            "desc": "Credit Card",
+            "val": "Credit Card"
+          },
+          {
+            "id": 5,
+            "desc": "Net 30",
+            "val": "Net 30"
+          },
+          {
+            "id": 6,
+            "desc": "PayPal",
+            "val": "PayPal"
+          },
+          {
+            "id": 7,
+            "desc": "Invoice",
+            "val": "Invoice"
+          },
+          {
+            "id": 8,
+            "desc": "Deferred CC",
+            "val": "Deferred CC"
+          }
+        ]
+      },
+      {
+        "name": "PROPERTY_TYPE",
+        "list": [
+          {
+            "id": 1,
+            "desc": "2 to 4 Unit Building",
+            "val": "2 to 4 Unit Building"
+          },
+          {
+            "id": 2,
+            "desc": "5+ Unit Building",
+            "val": "5+ Unit Building"
+          },
+          {
+            "id": 3,
+            "desc": "Apartment",
+            "val": "Apartment"
+          },
+          {
+            "id": 4,
+            "desc": "Attached",
+            "val": "Attached"
+          },
+          {
+            "id": 5,
+            "desc": "Commercial (Non Resedential)",
+            "val": "Commercial (Non Resedential)"
+          },
+          {
+            "id": 6,
+            "desc": "Commercial (Other)",
+            "val": "Commercial (Other)"
+          },
+          {
+            "id": 7,
+            "desc": "Condominium",
+            "val": "Condominium"
+          },
+          {
+            "id": 8,
+            "desc": "Condotel",
+            "val": "Condotel"
+          },
+          {
+            "id": 9,
+            "desc": "Single Family",
+            "val": "Single Family"
+          }
+        ]
+      },
+      {
+        "name": "States",
+        "list": [
+          {
+            "name": "Alabama",
+            "abbreviation": "AL"
+          },
+          {
+            "name": "Alaska",
+            "abbreviation": "AK"
+          },
+          {
+            "name": "American Samoa",
+            "abbreviation": "AS"
+          },
+          {
+            "name": "Arizona",
+            "abbreviation": "AZ"
+          },
+          {
+            "name": "Arkansas",
+            "abbreviation": "AR"
+          },
+          {
+            "name": "California",
+            "abbreviation": "CA"
+          },
+          {
+            "name": "Colorado",
+            "abbreviation": "CO"
+          },
+          {
+            "name": "Connecticut",
+            "abbreviation": "CT"
+          },
+          {
+            "name": "Delaware",
+            "abbreviation": "DE"
+          },
+          {
+            "name": "District Of Columbia",
+            "abbreviation": "DC"
+          },
+          {
+            "name": "Federated States Of Micronesia",
+            "abbreviation": "FM"
+          },
+          {
+            "name": "Florida",
+            "abbreviation": "FL"
+          },
+          {
+            "name": "Georgia",
+            "abbreviation": "GA"
+          },
+          {
+            "name": "Guam",
+            "abbreviation": "GU"
+          },
+          {
+            "name": "Hawaii",
+            "abbreviation": "HI"
+          },
+          {
+            "name": "Idaho",
+            "abbreviation": "ID"
+          },
+          {
+            "name": "Illinois",
+            "abbreviation": "IL"
+          },
+          {
+            "name": "Indiana",
+            "abbreviation": "IN"
+          },
+          {
+            "name": "Iowa",
+            "abbreviation": "IA"
+          },
+          {
+            "name": "Kansas",
+            "abbreviation": "KS"
+          },
+          {
+            "name": "Kentucky",
+            "abbreviation": "KY"
+          },
+          {
+            "name": "Louisiana",
+            "abbreviation": "LA"
+          },
+          {
+            "name": "Maine",
+            "abbreviation": "ME"
+          },
+          {
+            "name": "Marshall Islands",
+            "abbreviation": "MH"
+          },
+          {
+            "name": "Maryland",
+            "abbreviation": "MD"
+          },
+          {
+            "name": "Massachusetts",
+            "abbreviation": "MA"
+          },
+          {
+            "name": "Michigan",
+            "abbreviation": "MI"
+          },
+          {
+            "name": "Minnesota",
+            "abbreviation": "MN"
+          },
+          {
+            "name": "Mississippi",
+            "abbreviation": "MS"
+          },
+          {
+            "name": "Missouri",
+            "abbreviation": "MO"
+          },
+          {
+            "name": "Montana",
+            "abbreviation": "MT"
+          },
+          {
+            "name": "Nebraska",
+            "abbreviation": "NE"
+          },
+          {
+            "name": "Nevada",
+            "abbreviation": "NV"
+          },
+          {
+            "name": "New Hampshire",
+            "abbreviation": "NH"
+          },
+          {
+            "name": "New Jersey",
+            "abbreviation": "NJ"
+          },
+          {
+            "name": "New Mexico",
+            "abbreviation": "NM"
+          },
+          {
+            "name": "New York",
+            "abbreviation": "NY"
+          },
+          {
+            "name": "North Carolina",
+            "abbreviation": "NC"
+          },
+          {
+            "name": "North Dakota",
+            "abbreviation": "ND"
+          },
+          {
+            "name": "Northern Mariana Islands",
+            "abbreviation": "MP"
+          },
+          {
+            "name": "Ohio",
+            "abbreviation": "OH"
+          },
+          {
+            "name": "Oklahoma",
+            "abbreviation": "OK"
+          },
+          {
+            "name": "Oregon",
+            "abbreviation": "OR"
+          },
+          {
+            "name": "Palau",
+            "abbreviation": "PW"
+          },
+          {
+            "name": "Pennsylvania",
+            "abbreviation": "PA"
+          },
+          {
+            "name": "Puerto Rico",
+            "abbreviation": "PR"
+          },
+          {
+            "name": "Rhode Island",
+            "abbreviation": "RI"
+          },
+          {
+            "name": "South Carolina",
+            "abbreviation": "SC"
+          },
+          {
+            "name": "South Dakota",
+            "abbreviation": "SD"
+          },
+          {
+            "name": "Tennessee",
+            "abbreviation": "TN"
+          },
+          {
+            "name": "Texas",
+            "abbreviation": "TX"
+          },
+          {
+            "name": "Utah",
+            "abbreviation": "UT"
+          },
+          {
+            "name": "Vermont",
+            "abbreviation": "VT"
+          },
+          {
+            "name": "Virgin Islands",
+            "abbreviation": "VI"
+          },
+          {
+            "name": "Virginia",
+            "abbreviation": "VA"
+          },
+          {
+            "name": "Washington",
+            "abbreviation": "WA"
+          },
+          {
+            "name": "West Virginia",
+            "abbreviation": "WV"
+          },
+          {
+            "name": "Wisconsin",
+            "abbreviation": "WI"
+          },
+          {
+            "name": "Wyoming",
+            "abbreviation": "WY"
+          }
+        ]
+      }
+    ]
+  }
+}
