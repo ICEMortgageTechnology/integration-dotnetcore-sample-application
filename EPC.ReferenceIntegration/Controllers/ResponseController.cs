@@ -46,6 +46,12 @@ namespace EPC.ReferenceIntegration.Controllers
             SubmitResponseToPartnerAPI(value, transactionId);
         }
 
+        // PUT: api/Response/5
+        [HttpPut("{orderId}")]
+        public void Put(string orderId, [FromBody]string value)
+        {
+        }
+
         #region " Private Methods for Handing Submit Response "
 
         /// <summary>
@@ -184,7 +190,7 @@ namespace EPC.ReferenceIntegration.Controllers
                                 _Logger.LogInformation("[ResponseController] - GetDocumentsFromResponse - MediaServer response is not null ");
 
                                 dynamic document = new JObject();
-                                document.name = "Appraisal Report";
+                                document.name = _AppSettings.IntegrationType + " Report";
                                 document.attachments = mediaServerResponse;
                                 documentsResponse.Add(document);
                             }

@@ -29,6 +29,38 @@ namespace EPC.ReferenceIntegration.ExtensionMethods
         }
 
         /// <summary>
+        /// Gets value by JSON Path
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="jObject"></param>
+        /// <param name="key"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static T GetValueByPath<T>(this JObject jObject, string key, T defaultValue = default(T))
+        {
+            dynamic ret = jObject.SelectToken(key);
+            if (ret == null) return defaultValue;
+            if (ret is JObject) return JsonConvert.DeserializeObject<T>(ret.ToString());
+            return (T)ret;
+        }
+
+        /// <summary>
+        /// Gets value by JSON Path
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="jToken"></param>
+        /// <param name="key"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static T GetValueByPath<T>(this JToken jToken, string key, T defaultValue = default(T))
+        {
+            dynamic ret = jToken.SelectToken(key);
+            if (ret == null) return defaultValue;
+            if (ret is JObject) return JsonConvert.DeserializeObject<T>(ret.ToString());
+            return (T)ret;
+        }
+
+        /// <summary>
         /// This methid will check if the JSON is valid (it will check if it has any script tags)
         /// </summary>
         /// <param name="payload"></param>

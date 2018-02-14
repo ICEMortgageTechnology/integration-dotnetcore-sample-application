@@ -36,7 +36,6 @@ namespace EPC.ReferenceIntegration.Controllers
         {
             _Logger.LogInformation("[UIController] - GET - api/ui - [STARTS]");
 
-            JObject uiDataResponseJson = null;
             string uiResponse = string.Empty;
 
             var partnerAPIWrapper = new PartnerAPIWrapper(this._AppSettings);
@@ -48,8 +47,19 @@ namespace EPC.ReferenceIntegration.Controllers
             {
                 _Logger.LogInformation("[UIController] - GET - api/ui - OriginResponse is not null");
 
-                uiDataResponseJson = new JObject();
+                dynamic uiDataResponseJson = new JObject();
                 uiDataResponseJson.Add("originResponse", originResponse);
+
+                if(uiDataResponseJson.originResponse.credentials != null)
+                { 
+                    // reading the credentials object and stripping the password before sending it to the ui
+                    var credentials = uiDataResponseJson.originResponse.credentials;
+
+                    // better to have a universal password naming convention here
+                    credentials["133003.Pwd"] = "********";
+                    credentials["password"] = "********";
+
+                }
 
                 // Sanitizing the response payload here for any html or script tags and escaping them. 
                 var settings = new JsonSerializerSettings()
@@ -58,6 +68,8 @@ namespace EPC.ReferenceIntegration.Controllers
                 };
 
                 uiResponse = JsonConvert.SerializeObject(uiDataResponseJson, settings);
+
+                //uiResponse = uiDataResponseJson.ToString(Formatting.None);
             }
 
             _Logger.LogInformation("[UIController] - GET - api/ui - [END]");
@@ -78,12 +90,14 @@ namespace EPC.ReferenceIntegration.Controllers
             {
                 // the partner will do their own authentication and authorization here
                 // this is just a demo 
-                if(data["userName"] != null && data.GetValue("userName").ToString() == "ellietest@testappraisal.com" && data["password"] != null && data.GetValue("password").ToString() == "Elli3M@e")
+                if(data["userName"] != null && data.GetValue("userName").ToString() == "ellietest@testappraisal.com" && data["password"] != null && data.GetValue("password").ToString() == "######")
                 {
-                    if (MockResponseHelper.GetUIDataResponse() != null)
-                    {
-                        uiDataResponseJson = MockResponseHelper.GetUIDataResponse();
+                    var mockResponseHelper = new MockResponseHelper(_AppSettings);
 
+                    uiDataResponseJson = mockResponseHelper.GetUIDataResponse();
+
+                    if (uiDataResponseJson != null)
+                    {
                         // Sanitizing the response payload here for any html or script tags and escaping them.
                         var settings = new JsonSerializerSettings()
                         {

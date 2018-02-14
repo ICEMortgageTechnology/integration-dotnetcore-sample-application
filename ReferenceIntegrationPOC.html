@@ -5,10 +5,10 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Test Appraisal Company</title>
-    <link href="https://bootswatch.com/flatly/bootstrap.min.css" rel="stylesheet">
+    <link href="lib/css/bootstrap.min.css" rel="stylesheet">
     <!-- Include Bootstrap Datepicker -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css" />
+    <link rel="stylesheet" href="lib/css/datepicker.min.css" />
+    <link rel="stylesheet" href="lib/css/datepicker3.min.css" />
     <style type="text/css">
         /* Start by setting display:none to make this hidden.
         Then we position it in relation to the viewport window
@@ -327,6 +327,42 @@
         </div>
     </div>
 
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header modal-login-header">
+                    <h4 class="modal-title">Reference Integration</h4>
+                </div>
+                <div class="modal-body" data-action="" data-params="">
+                    <div class="form-group">
+                        <label for="inputUserName" class="control-label">User Name</label>
+                        <input type="text" class="form-control" id="inputUserName" placeholder="User Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword" class="control-label">Password</label>
+                        <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword" class="control-label">Network ID</label>
+                        <input type="text" class="form-control" id="inputNetworkID" placeholder="Network ID">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="saveLoginInfo"> Save Login Information
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <!-- [START] This block is for the Header -->
     <nav class="navbar navbar-default">
         <div class="container-fluid">
@@ -339,6 +375,9 @@
                 </button>
                 <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-home"></span> &nbsp; Test Appraisal Company</a>
             </div>
+            <ul class="pull-right nav navbar-nav">
+                <li><a href="#" id="lnkMoreInfo" style="font-size: 15px;">Login</a></li>
+            </ul>
         </div>
     </nav>
     <!-- [END] This block is for the Header -->
@@ -350,107 +389,75 @@
 
             <!-- [START] This block is for the top Row -->
             <div class="row">
-                <!-- [START] This block is for the Login Column -->
-                <div class="col-lg-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Login Information</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div class="form-group">
-                                <label for="inputUserName" class="col-lg-2 control-label">User Name</label>
-                                <div class="col-lg-10">
-                                    <input type="text" class="form-control" id="inputUserName" placeholder="User Name">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputPassword" class="col-lg-2 control-label">Password</label>
-                                <div class="col-lg-10">
-                                    <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputNetworkID" class="col-lg-2 control-label">Network ID</label>
-                                <div class="col-lg-10">
-                                    <input type="text" class="form-control" id="inputNetworkID" placeholder="Network ID">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" id="saveLoginInfo"> Save Login Information
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- [END] This block is for the Login Column -->
+
                 <!-- [START] This block is for the Loan Information Column -->
-                <div class="col-lg-6">
+
+                <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">Loan Information</h3>
                         </div>
                         <div class="panel-body">
-                            <div class="form-group">
-                                <label for="inputBorrower" class="col-lg-4 control-label">Borrower</label>
-                                <div class="col-lg-8">
-                                    <div id="inputBorrower" class="col-lg-8 control-label form-label">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="inputBorrower" class="control-label">Borrower</label>
+                                    <div id="inputBorrower" class=" control-label form-label">
                                         &nbsp;
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="inputCoBorrower" class="col-lg-4 control-label">Co Borrower</label>
-                                <div class="col-lg-8">
-                                    <div id="inputCoBorrower" class="col-lg-8 control-label form-label">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="inputCoBorrower" class="control-label">Co Borrower</label>
+                                    <div id="inputCoBorrower" class=" control-label form-label">
                                         &nbsp;
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="inputPropertyAddress" class="col-lg-4 control-label">Property Address</label>
-                                <div class="col-lg-8">
-                                    <div id="inputPropertyAddress" class="col-lg-8 control-label form-label">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="inputPropertyAddress" class="control-label">Property Address</label>
+                                    <div id="inputPropertyAddress" class=" control-label form-label">
                                         &nbsp;
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="inputPropertyCounty" class="col-lg-4 control-label">Property County</label>
-                                <div class="col-lg-8">
-                                    <div id="inputPropertyCounty" class="col-lg-8 control-label form-label">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="inputPropertyCounty" class="control-label">Property County</label>
+                                    <div id="inputPropertyCounty" class=" control-label form-label">
                                         &nbsp;
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="inputLoanReference" class="col-lg-4 control-label">Loan Reference</label>
-                                <div class="col-lg-8">
-                                    <div id="inputLoanReference" class="col-lg-8 control-label form-label">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="inputLoanReference" class="control-label">Loan Reference</label>
+                                    <div id="inputLoanReference" class=" control-label form-label">
                                         &nbsp;
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="inputFHACaseNum" class="col-lg-4 control-label">FHA Case Num</label>
-                                <div class="col-lg-8">
-                                    <div id="inputFHACaseNum" class="col-lg-8 control-label form-label">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="inputFHACaseNum" class="control-label">FHA Case Num</label>
+                                    <div id="inputFHACaseNum" class=" control-label form-label">
                                         &nbsp;
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="inputPurchasePrice" class="col-lg-4 control-label">Purchase Price</label>
-                                <div class="col-lg-8">
-                                    <div id="inputPurchasePrice" class="col-lg-8 control-label form-label">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="inputPurchasePrice" class="control-label">Purchase Price</label>
+                                    <div id="inputPurchasePrice" class=" control-label form-label">
                                         &nbsp;
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="inputLoanAmount" class="col-lg-4 control-label">Loan Amount</label>
-                                <div class="col-lg-8">
-                                    <div id="inputLoanAmount" class="col-lg-8 control-label form-label">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="inputLoanAmount" class="control-label">Loan Amount</label>
+                                    <div id="inputLoanAmount" class=" control-label form-label">
                                         &nbsp;
                                     </div>
                                 </div>
@@ -458,6 +465,7 @@
                         </div>
                     </div>
                 </div>
+
                 <!-- [END] This block is for the Borrower Information Column -->
             </div>
             <!-- [END] This block is for the top Row -->
@@ -1213,12 +1221,11 @@
         </div>
         <!--[END] This block is for the footer -->
     </div>
-    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
-    <script src="https://rawgit.com/abdennour/bootstrap-waitingfor/master/build/bootstrap-waitingfor.js"></script>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="lib/js/jquery-3.2.1.min.js"></script>
+    <script src="lib/js/bootstrap.min.js"></script>
+    <script src="lib/js/bootstrap-datepicker.min.js"></script>
+    <script src="lib/js/bootstrap-waitingfor.js"></script>
+    <script src="lib/js/respond.min.js"></script>
     <script type="text/javascript">
 
         // these values get injected in
@@ -1230,9 +1237,9 @@
 
         // Insert default values if injection didn't happen
         if (transactionId.toLowerCase().indexOf('{\{') == 0)
-            transactionId = 'TransactionID';
+            transactionId = 'GUID';
         if (partnerAPIUrl.toLowerCase().indexOf('{\{') == 0)
-            partnerAPIUrl = 'Partners Backend URL';
+            partnerAPIUrl = 'https://partnerAPIUrl.test/';
 
         var statusInterval = null;
         var _OrderProcessMessage = 'Please wait while your order is being processed..';
@@ -1297,6 +1304,11 @@
                     SubmitRequest();
                 }
 
+            });
+
+            // On click event for More Info Link on the header
+            $('#lnkMoreInfo').on('click', function () {
+                $('#loginModal').modal('show');
             });
 
             // Refresh button click event
@@ -1368,7 +1380,6 @@
                     $('#btnSubmit').text('Submit Order');
                     $('#btnSubmit').data('action', 'submit');
                     $('#btnSubmit').removeAttr('disabled');
-                    //$('#btnUpdateStatus').css('display', 'none');
                 }
             });
 
@@ -1605,9 +1616,7 @@
                         var coBorrowerName = response.originResponse.loanData.Applications[0].Coborrower.FullNameWithSuffix;
                         $('#inputCoBorrower').text(coBorrowerName);
                     }
-
-                    // var applicationId = response.originResponse.loanData.Applications[0].Id;
-                    // $('#inputLoanReference').text(applicationId);
+                    
 
 
                 }
@@ -1655,6 +1664,19 @@
 
                 if (typeof response.originResponse.loanData.AgencyCaseIdentifier != 'undefined') {
                     $('#inputFHACaseNum').text(response.originResponse.loanData.AgencyCaseIdentifier);
+                }
+
+                // this code will show 
+                if (typeof response.originResponse.credentials != 'undefined') {                    
+                    var username = response.originResponse.credentials['133003.UserName'];
+                    var password = response.originResponse.credentials['133003.Pwd'];
+                    var networkId = response.originResponse.credentials['133003.MercuryID'];
+                    $('#inputUserName').val(username);
+                    $('#inputPassword').val(password);
+                    $('#inputNetworkID').val(networkId);
+                }
+                else {
+                    $('#loginModal').modal('show');
                 }
 
                 if (typeof response != 'undefined' && response != '' && typeof response.originResponse != 'undefined' && response.originResponse != null && typeof response.originResponse.orderHistory != 'undefined' && response.originResponse.orderHistory != null) {
@@ -1760,7 +1782,6 @@
                     for (var i = 0; i < propertyCharacteristicsList.length; i++) {
                         if (i == 0)
                             $('#propertyCharacteristics').append('<option value="0"></option>');
-                        //$('#propertyCharacteristics').append('<option value="' + propertyCharacteristicsList[i].id + '">' + propertyCharacteristicsList[i].val + '</option>');
                         $('#propertyCharacteristics').append('<div class="checkbox checkboxlist"><label><input type="checkbox" name="propertycharacteristics" id="' + propertyCharacteristicsList[i].id + '" value="' + propertyCharacteristicsList[i].id + '">' + propertyCharacteristicsList[i].val + '</label></div>');
                     }
                 }
@@ -1996,7 +2017,7 @@
                     for (var i = 0; i < ordersList.length; i++) {
                         var rowNumber = i + 1;
                         var dataDocuments = '';
-                        var date = ordersList[i].orderDateTime; //new Date(ordersList[i].orderDateTime);
+                        var date = ordersList[i].orderDateTime;
                         var statusClass = 'pending';
 
                         if (typeof ordersList[i].documents != 'undefined' && ordersList[i].documents != '') {
@@ -2156,10 +2177,9 @@
             subProduct.code = $("input:radio[name='products']:checked").val();
             subProducts.push(subProduct);
 
+            // Adding emRequiredFields in product node
             emRequiredFields.subProducts = subProducts;
 
-            // Adding emRequiredFields in product node
-            // product.emRequiredFields = emRequiredFields;
 
             var request = {};
 
@@ -2336,7 +2356,6 @@
                 contentType: 'application/json; charset=utf-8',
                 success: function (response) {
                     console.log('Request Submitted');
-                    //$body.removeClass("loading");
 
                     // if the request is submitted, then set a timer to check for the Order status every 3 seconds.
                     statusInterval = setInterval(CheckAcknowledgement, 3000);

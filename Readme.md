@@ -1,5 +1,5 @@
 ﻿## Encompass Partner Connect
-#### Reference Implementation - Appraisal
+#### Reference Implementation - Appraisal / Verification / Data and Docs
  
 ## Table of Contents
 1. Introduction
@@ -43,7 +43,7 @@ Ngrok will display a proxy URL, for example https://123456f23.ngrok.io/.  This U
 Ngrok has a Web Console that can be used to see active requests that are being proxied to the development workstation.  The Web Console can be accessed at [http://127.0.0.1:4040/inspect/http] (http://127.0.0.1:4040/inspect/http)
  
 ## Configure the Visual Studio Solution
-
+ 
 TODO: Plug the EPC WebhookSecret, APIHost, ClientID and ClientSecret in the config file (appsettings.json) which is shared by Ellie Mae during onboarding.
  
 ## Create and Upload the Integration Zip File
@@ -56,8 +56,8 @@ The HTML file can be found as part of the source code cloned from GitHub.  The c
 ```
 { 
    "Configuration":{ 
-      "Category":"APPRAISAL_1",
-      "ProductName":"APPRAISAL",
+      "Category":"CategoryName_1",
+      "ProductName":"ProductName",
       "ConfigurationName":"Dev",
       "PartnerRestApiURL":"https://localhost:65387/",
       "WebhookURL":"https://123456f23.ngrok.io:65387/api/webhook"

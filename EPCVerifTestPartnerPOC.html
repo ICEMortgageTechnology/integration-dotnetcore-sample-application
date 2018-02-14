@@ -1,0 +1,2572 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Test Verification Partner - 4506-T / VOE / VOD / SSN</title>
+    <link href="lib/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Include Bootstrap Datepicker -->
+    <link rel="stylesheet" href="lib/css/datepicker.min.css" />
+    <link rel="stylesheet" href="lib/css/datepicker.min.css" />
+    <link rel="stylesheet" href="lib/css/bootstrap-table.css" />
+    <style type="text/css">
+        /* Start by setting display:none to make this hidden.
+        Then we position it in relation to the viewport window
+        with position:fixed. Width, height, top and left speak
+        speak for themselves. Background we set to 80% white with
+        our animation centered, and no-repeating */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1500 !important;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: rgba( 30, 30, 30, .5 ) url('http://sampsonresume.com/labs/pIkfp.gif') 50% 50% no-repeat;
+        }
+
+        /* When the body has the loading class, we turn
+        the scrollbar off with overflow:hidden */
+        body.loading {
+            overflow: hidden;
+        }
+
+            /* Anytime the body has the loading class, our
+        modal element will be visible */
+            body.loading .modal {
+                display: block;
+            }
+
+        .form-label {
+            padding: 3px;
+        }
+
+        .form-control {
+            margin-bottom: 2px !important;
+        }
+
+        .modal-header {
+            background: #eff4f9;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+
+        .modal-success-header {
+            background: #18bebc;
+            color: white;
+        }
+
+        .modal-error-header {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .modal-warning-header {
+            background: #9F6000;
+            color: white;
+        }
+
+        .modal {
+            text-align: center;
+            padding: 0 !important;
+        }
+
+            .modal:before {
+                content: '';
+                display: inline-block;
+                height: 100%;
+                vertical-align: middle;
+                margin-right: -4px;
+            }
+
+        .modal-dialog {
+            display: inline-block;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        .radio-inline {
+            vertical-align: middle;
+        }
+
+        .thead-default {
+            background-color: #eff4f9;
+        }
+
+        .tab-content {
+            border: 1px solid #ecf0f1;
+            border-top: none;
+            padding: 5px;
+        }
+
+        .nav-tabs {
+            margin-bottom: 0;
+        }
+
+        .tab-content > .tab-pane {
+            visibility: hidden;
+            padding: 5px;
+        }
+
+        .tab-content > .active {
+            visibility: visible;
+        }
+
+        .radiolist {
+            padding: 3px;
+        }
+
+        .selected {
+            background-color: #fbe8b4;
+        }
+
+        .btn-file {
+            position: relative;
+            overflow: hidden;
+        }
+
+            .btn-file input[type=file] {
+                position: absolute;
+                top: 0;
+                right: 0;
+                min-width: 100%;
+                min-height: 100%;
+                font-size: 100px;
+                text-align: right;
+                filter: alpha(opacity=0);
+                opacity: 0;
+                outline: none;
+                background: white;
+                cursor: inherit;
+                display: block;
+            }
+
+        .date-picker {
+            padding: 0px;
+        }
+
+        .order-row {
+            cursor: pointer;
+        }
+
+        .pending {
+            padding: 2px;
+            background-color: #eb6759;
+            color: white;
+            border-radius: 3px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .completed {
+            padding: 2px;
+            background-color: #8abc82;
+            color: white;
+            border-radius: 3px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .otherstatus {
+            padding: 2px;
+            background-color: #dab478;
+            color: white;
+            border-radius: 3px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .modal-header > h3 {
+            font-size: 18px;
+        }
+
+        .disabled {
+            color: grey;
+        }
+
+        .panel-heading .accordion-toggle:after {
+            /* symbol for "opening" panels */
+            font-family: 'Glyphicons Halflings'; /* essential for enabling glyphicon */
+            content: "\e114"; /* adjust as needed, taken from bootstrap.css */
+            float: right; /* adjust as needed */
+            color: grey; /* adjust as needed */
+        }
+
+        .panel-heading .accordion-toggle.collapsed:after {
+            /* symbol for "collapsed" panels */
+            content: "\e080"; /* adjust as needed, taken from bootstrap.css */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Add Attachments Modal -->
+    <div id="addAttachmentsModal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header panel-default">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4><span id="eFoldertitleText">eFolder document and attachments </span></h4>
+                </div>
+                
+                <div id="divOrderDetails">                   
+                    <div class="col-lg-12">                        
+                        <label for="divOrderNumber" class="col-lg-3 control-label">Order Number: </label>
+                        <div class="col-lg-9">
+                            <div id="divOrderNumber" class="col-lg-9 control-label form-label">
+                                &nbsp;
+                            </div>
+                        </div>
+                    </div>    
+                    <div class="col-lg-12">
+                        <label for="divProductName" class="col-lg-3 control-label">Product Name: </label>
+                        <div class="col-lg-9">
+                            <div id="divProductName" class="col-lg-9 control-label form-label">
+                                &nbsp;
+                            </div>
+                        </div>
+                    </div>    
+                </div>
+                <div class="form-control" id="efolderdocList" style="height:360px; overflow-y: auto;">
+                    <table id="tblefolderdocList" class="table table-hover">
+                        <thead class="thead-default">
+                            <tr>
+                                <th></th>
+                                <th>Document Name</th>
+                                <th>For Borrower Pair</th>
+                                <th>For Milestone</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnAttachClose" type="button" class="btn btn-default" data-dismiss="modal">Ok</button>&nbsp;
+                    <button id="btnAttachCancel" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Message Modal -->
+    <div id="successModal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header modal-success-header">
+                    <h4 class="modal-title">Success</h4>
+                </div>
+                <div class="modal-body" id="successMessage">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Warning Message Modal -->
+    <div id="warningModal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header modal-warning-header">
+                    <span class="modal-title">Warning</span>
+                </div>
+                <div class="modal-body" id="warningMessage">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Error Message Modal -->
+    <div id="errorModal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header modal-error-header">
+                    <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
+                    <h4 class="modal-title">Error</h4>
+                </div>
+                <div class="modal-body" id="errorMessage">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header modal-login-header">
+                    <h4 class="modal-title">Reference Integration</h4>
+                </div>
+                <div class="modal-body" data-action="" data-params="">
+                    <div class="form-group">
+                        <label for="inputUserName" class="control-label">User Name</label>
+                        <input type="text" class="form-control" id="inputUserName" placeholder="User Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword" class="control-label">Password</label>
+                        <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="saveLoginInfo"> Save Login Information
+                            </label>
+                        </div>
+                    </div>
+     
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- [START] This block is for the Header -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-home"></span> &nbsp; 4506T - Test Verification Partner</a>
+            </div>
+            <ul class="pull-right nav navbar-nav">
+                <li><a href="#" id="lnkMoreInfo" style="font-size: 15px;">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- [END] This block is for the Body -->
+    <div class="container" style="padding: 5px; margin: 5px; width: 99%;">
+
+        <div class="modal"></div>
+
+        <form>
+
+            <!-- [START] This block is for the top Row -->
+
+
+            <!-- [START] This block is for the top Row -->
+            <div class="row">
+
+                <!-- [START] This block is for the Loan Information Column -->
+
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Loan Information</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="inputBorrower" class="control-label">Borrower</label>
+                                    <div id="inputBorrower" class=" control-label form-label">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="inputCoBorrower" class="control-label">Co Borrower</label>
+                                    <div id="inputCoBorrower" class=" control-label form-label">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="inputLoanNumber" class="control-label">Loan Number</label>
+                                    <div id="inputLoanNumber" class=" control-label form-label">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="inputTransactionType" class="control-label">Transaction Type</label>
+                                    <div id="inputTransactionType" class=" control-label form-label">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+
+                <!-- [END] This block is for the Borrower Information Column -->
+            </div>
+            <!-- [END] This block is for the top Row -->
+            <div class="row">
+                <!-- [START] This block is for the Login Column -->
+                <!--<div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Login Information</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group" style="height:38px;">
+                                <label for="txtUserName" class="col-lg-2 control-label">User Name</label>
+                                <div class="col-lg-10">
+                                    <input type="text" class="form-control" id="txtUserName" placeholder="User Name">
+                                </div>
+                            </div>
+                            <div class="form-group" style="height:38px;">
+                                <label for="txtPassword" class="col-lg-2 control-label">Password</label>
+                                <div class="col-lg-10">
+                                    <input type="password" class="form-control" id="txtPassword" placeholder="Password">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" id="chkSaveLoginInfo"> Save Login Information
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+                <!-- [END] This block is for the Login Column -->
+                <!-- [START] This block is for the Loan Information Column -->
+                <!--<div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Loan Information</h3>
+                        </div>
+                        <div class="panel-body" style="padding: 12px; height:170px;">
+                            <div class="form-group">
+                                <label for="inputBorrower" class="col-lg-4 control-label">Borrower</label>
+                                <div class="col-lg-8">
+                                    <div id="inputBorrower" class="col-lg-8 control-label form-label">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputCoBorrower" class="col-lg-4 control-label">Co Borrower</label>
+                                <div class="col-lg-8">
+                                    <div id="inputCoBorrower" class="col-lg-8 control-label form-label">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputLoanNumber" class="col-lg-4 control-label">Loan Number</label>
+                                <div class="col-lg-8">
+                                    <div id="inputLoanNumber" class="col-lg-8 control-label form-label">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputTransactionType" class="col-lg-4 control-label">Transaction Type</label>
+                                <div class="col-lg-8">
+                                    <div id="inputTransactionType" class="col-lg-8 control-label form-label">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+                <!-- [END] This block is for the Borrower Information Column -->
+            </div>
+            <!-- [END] This block is for the top Row -->
+            <!--[START] This block is for the Second Row -->
+            <div class="row">
+                <div id="tabContainer" style="padding: 12px;">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#4506TDirect" data-toggle="tab">4506-T Direct</a></li>
+                        <li><a href="#corporationinfo" data-toggle="tab">Corporation Info</a></li>
+                        <li class="hidden"><a href="#ssn" data-toggle="tab">SSN</a></li>
+                        <li class="hidden"><a href="#voe" data-toggle="tab">VOE</a></li>
+                        <li><a href="#checkStatus" data-toggle="tab">Check Status</a></li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+                        <div class="tab-pane fade active in" id="4506TDirect">
+
+                            <div style="padding: 5px;">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group" style="height:42px;">
+                                            <label class="col-lg-5">Tax Return(s) For </label>
+                                            <div class="col-lg-7">
+                                                <select class="form-control" id="cmbTaxRetunsFor">
+                                                    <option value="Borrower">Borrower</option>
+                                                    <option value="Co-Borrower">Co-Borrower</option>
+                                                    <option value="Joint">Joint</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--[START] This block is for the First Row in the 4506TDirect Tab -->
+
+                                <div class="row">
+                                    <div class="col-lg-6" id="div4506T">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                Select 4506-T Product
+                                            </div>
+                                            <div class="panel-body" style="height:200px;">
+                                                <!--<div class="form-group">
+                                                    <label for="clientGroup" class="col-lg-4 control-label">Client Group</label>
+                                                    <div class="col-lg-8">
+                                                        <select class="form-control" id="clientGroup" disabled></select>
+                                                    </div>
+                                                </div>-->
+                                                <div class="form-group" style="height:38px;">
+                                                    <label class="col-lg-5"><input type="checkbox" id="chk1040" name="Direct Transscript 1040" value="1040"> Direct Transscript 1040 </label>
+                                                    <div class="col-lg-7">
+                                                        <select class="form-control" id="cmb1040">
+                                                            <option value="Return Transcript">Return Transcript</option>
+                                                            <option value="Account Transcript">Account Transcript</option>
+                                                            <option value="Record Of Account">Record Of Account</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group" style="height:38px;">
+                                                    <label class="col-lg-5"><input type="checkbox" id="chk1065" name="Direct Business Transscript 1065" value="1065"> Direct Business Transscript 1065 </label>
+                                                    <div class="col-lg-7">
+                                                        <select class="form-control" id="cmb1065">
+                                                            <option value="Return Transcript">Return Transcript</option>
+                                                            <option value="Account Transcript">Account Transcript</option>
+                                                            <option value="Record Of Account">Record Of Account</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="form-group" style="height:38px;">
+                                                    <label class="col-lg-5"><input type="checkbox" id="chk1120" name="Direct Business Transscript 1120" value="1120"> Direct Business Transscript 1120 </label>
+                                                    <div class="col-lg-7">
+                                                        <select class="form-control" id="cmb1120">
+                                                            <option value="Return Transcript">Return Transcript</option>
+                                                            <option value="Account Transcript">Account Transcript</option>
+                                                            <option value="Record Of Account">Record Of Account</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-lg-5">
+                                                    <label><input type="checkbox" id="chkw2" name="Direct W2" value="w2"> Direct W2 </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <label><input type="checkbox" id="chk1099" name="Direct 1099" value="1099"> Direct 1099 </label>
+                                                    <div class="col-lg-7">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" style="height:38px;">
+                                            <label for="txtSigned4506T" class="col-lg-3 control-label">Signed 4506-T</label>
+                                            <div class="col-lg-8">
+                                                <input type="text" class="form-control" readonly="readonly" id="txtSigned4506T" placeholder="Browse">
+                                            </div>
+                                            <div class="col-lg-0">
+                                                <button type="button" id="btnfourfiveBrowseEncFolder" class="btn btn-info" title="Select eFolder attachment(s)">
+                                                    <span class="glyphicon glyphicon-search"></span>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" style="height:38px;">
+                                            <label for="requestoptions" class="col-lg-3 control-label">Request Options</label>
+                                            <div class="col-lg-9">
+                                                <select class="form-control" id="cmbRequestOptions">
+                                                    <option value="">Select</option>
+                                                    <option value="Pre-Populated 4506T">Pre-Populated 4506T/Fax Coversheet</option>
+                                                    <option value="Fax Coversheet Only">Fax Coversheet Only</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" style="height:38px;">
+                                            <label for="additionalemail" class="col-lg-3 control-label">Additional Email</label>
+                                            <div class="col-lg-9">
+                                                <input type="text" class="form-control" id="txtAdditionalEmail" placeholder="Additional Email">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-lg-2" id="divTranscriptYear">
+                                        <div class="panel panel-default" style="width:220px;">
+                                            <div class="panel-heading">
+                                                Select transcript year(s)
+                                            </div>
+                                            <div class="panel-body" style="padding: 12px;">
+
+                                                <div class="checkbox" style="padding: 3px;">
+                                                    <label><input type="checkbox" value="2016"> 2016</label>
+                                                </div>
+
+                                                <div class="checkbox" style="padding: 3px;">
+                                                    <label><input type="checkbox" value="2015"> 2015</label>
+                                                </div>
+
+                                                <div class="checkbox" style="padding: 3px;">
+                                                    <label><input type="checkbox" value="2014"> 2014</label>
+                                                </div>
+
+                                                <div class="checkbox" style="padding: 3px;">
+                                                    <label><input type="checkbox" value="2013"> 2013</label>
+                                                </div>
+
+                                                <div class="checkbox" style="padding: 3px;">
+                                                    <label><input type="checkbox" value="2012"> 2012</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div height:210px;">
+
+                                            <div class="form-group" style="height:38px;">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" id="chkIncomeVariance" checked> Calculate Income Variance</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group" style="height:38px;">
+                                                <label class="col-lg-6 control-label">Variance Percentage</label>
+                                                <div class="col-lg-4" id="divVariancePercentage">
+                                                    <select class="form-control" id="cmbVariancePercentage"></select>
+                                                </div>
+                                                <div class="col-lg-2"></div>
+                                            </div>
+
+                                            <div class="form-group" style="height:38px;">
+                                                <label for="cmbComparisonMethod" class="col-lg-6 control-label">Comparison Method</label>
+                                                <div class="col-lg-4">
+                                                    <select class="form-control" id="cmbComparisonMethod">
+                                                        <option value="Total">Total</option>
+                                                        <option value="AGI">AGI</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-2"></div>
+                                            </div>
+
+                                            <div class="form-group" style="height:38px;">
+                                                <label for="txtBorMonthlyIncome" class="col-lg-6 control-label">Monthly Income: Borrower</label>
+                                                <div class="col-lg-4">
+                                                    <input type="text" class="form-control" id="txtBorMonthlyIncome" maxlength="8" placeholder="">
+                                                </div>
+                                                <div class="col-lg-2"></div>
+                                            </div>
+
+                                            <div class="form-group" style="height:38px;">
+                                                <label for="txtCoBorMonthlyIncome" class="col-lg-6 control-label">Monthly Income: Co-Borrower</label>
+                                                <div class="col-lg-4">
+                                                    <input type="text" class="form-control" id="txtCoBorMonthlyIncome" maxlength="8" placeholder="">
+                                                </div>
+                                                <div class="col-lg-2"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6" style="padding: 12px; margin-bottom: 0px;">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">Remarks</div>
+                                            <div class="panel-body" style="padding: 0px;">
+                                                <div style="padding: 0px;">
+                                                    <textarea class="form-control" rows="3" id="txt4506TRemarks" placeholder="Enter comments"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="corporationinfo">
+                            <div class="section">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                If you have selected form 1065 or 1120, then you have to enter the following information.
+                                            </div>
+                                            <div class="panel-body" style="height:350px;">
+                                                <div class="form-group" style="height:38px;">
+                                                    <label class="col-lg-3 control-label">EIN Number</label>
+                                                    <div class="col-lg-9">
+                                                        <input type="text" class="form-control" id="txtEINNumber" maxlength="9" placeholder="EIN Number">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group" style="height:38px;">
+                                                    <label class="col-lg-3 control-label">Corporation Name</label>
+                                                    <div class="col-lg-9">
+                                                        <input type="text" class="form-control" id="txtCorpName" placeholder="Corporation Name">
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="form-group" style="height:38px;">
+                                                    <label class="col-lg-3 control-label">Address</label>
+                                                    <div class="col-lg-9">
+                                                        <input type="text" class="form-control" id="txtCorpAddress" placeholder="Address">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group" style="height:38px;">
+                                                    <label class="col-lg-3 control-label">City</label>
+                                                    <div class="col-lg-9">
+                                                        <input type="text" class="form-control" id="txtCorpCity" placeholder="City">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group" style="height:38px;">
+                                                    <label class="col-lg-3 control-label">State</label>
+                                                    <div class="col-lg-9">
+                                                        <input type="text" class="form-control" id="txtCorpState" placeholder="State" maxlength="2">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group" style="height:38px;">
+                                                    <label class="col-lg-3 control-label">Zip</label>
+                                                    <div class="col-lg-9">
+                                                        <input type="text" class="form-control" id="txtCorpZip" placeholder="Zip" maxlength="5">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="ssn">
+                            <div class="section">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                Select Verification
+                                            </div>
+                                            <div class="panel-body" style="height:390px;">
+                                                <div class="form-group" style="height:38px;">
+                                                    <div class="col-lg-12">
+                                                        <label><input type="checkbox" id="chkSSN" name="SSN Verification" value="ssn"> SSN Verification </label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group" style="height:38px;">
+                                                    <label class="col-lg-3">Report On </label>
+                                                    <div class="col-lg-9">
+                                                        <select class="form-control" id="cmbSSNReportOn">
+                                                            <option value="Borrower">Borrower</option>
+                                                            <option value="Co-Borrower">Co-Borrower</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group" style="height:38px;">
+                                                    <label for="txtSignedSSA89" class="col-lg-3 control-label">Signed SSA-89 Form</label>
+                                                    <div class="col-lg-8">
+                                                        <input type="text" class="form-control" readonly="readonly" id="txtSignedSSA89" placeholder="Browse">
+                                                    </div>
+                                                    <div class="col-lg-0">
+                                                        <button type="button" id="btnSSABrowseEncFolder" class="btn btn-info" title="Select eFolder attachment(s)">
+                                                            <span class="glyphicon glyphicon-search"></span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group" style="height:38px;">
+                                                    <label for="txtSSNAdditionalEmail" class="col-lg-3 control-label">Additional Email</label>
+                                                    <div class="col-lg-9">
+                                                        <input type="text" class="form-control" id="txtSSNAdditionalEmail" placeholder="Additional Email">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-12" style="padding: 12px; margin-bottom: 0px;">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">Special Instructions</div>
+                                                        <div class="panel-body" style="padding: 0px;">
+                                                            <div style="padding: 0px;">
+                                                                <textarea class="form-control" rows="3" id="txtSSNRemarks" placeholder="Enter comments"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="voe">
+                            <div class="section">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                Verification of Employment and Income
+                                            </div>
+                                            <div class="panel-body" style="height:390px;">
+                                                <div id="divempverif" class="form-group" style="height:38px;">
+                                                    <div class="col-lg-5">
+                                                        <label><input type="radio" id="rdoEmp" name="Employment verification" value="voe"> Employment verification </label>
+                                                    </div>
+                                                    <div class="col-lg-7">
+                                                        <label><input type="radio" id="rdoEmpIncome" name="Employment plus income verification" value="voei"> Employment plus income verification </label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group" style="height:38px;">
+                                                    <label class="col-lg-3">Report On </label>
+                                                    <div class="col-lg-9">
+                                                        <select class="form-control" id="cmbVOEReportOn">
+                                                            <option value="Borrower">Borrower</option>
+                                                            <option value="Co-Borrower">Co-Borrower</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group" style="height:38px;">
+                                                    <label class="col-lg-3">Employer(s) </label>
+                                                    <div class="col-lg-9">
+                                                        <select class="form-control" id="cmbEmployer">
+                                                            <option value="Current">Current Employer(s)</option>
+                                                            <option value="Previous">Previous Employer(s)</option>
+                                                            <option value="Both">Both Current and Previous Employer(s)</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group" style="height:38px;">
+                                                    <label for="txtAuthForm" class="col-lg-3 control-label">Authorization Form</label>
+                                                    <div class="col-lg-8">
+                                                        <input type="text" class="form-control" readonly="readonly" id="txtAuthForm" placeholder="Browse from Encompass eFolder">
+                                                    </div>
+                                                    <div class="col-lg-0">
+                                                        <button type="button" id="btnVOEBrowseEncFolder" class="btn btn-info" title="Select eFolder attachment(s)">
+                                                            <span class="glyphicon glyphicon-search"></span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-12" style="padding: 12px; margin-bottom: 0px;">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">Remarks</div>
+                                                        <div class="panel-body" style="padding: 0px;">
+                                                            <div style="padding: 0px;">
+                                                                <textarea class="form-control" rows="3" id="txtVOERemarks" placeholder="Enter comments"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                Optional fields
+                                            </div>
+                                            <div class="panel-body" style="height:390px;">
+
+                                                <div class="form-group" style="height:38px;">
+                                                    <label for="txtSalaryKey" class="col-lg-3 control-label">Salary Key</label>
+                                                    <div class="col-lg-8">
+                                                        <input type="text" class="form-control" id="txtSalaryKey" placeholder="Salary Key">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group" style="height:38px;">
+                                                    <label for="txtEmpName" class="col-lg-3 control-label">Employer Name</label>
+                                                    <div class="col-lg-8">
+                                                        <input type="text" class="form-control" id="txtEmpName" placeholder="Employer Name">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group" style="height:38px;">
+                                                    <label for="txtEmpCode" class="col-lg-3 control-label">Employer Code</label>
+                                                    <div class="col-lg-8">
+                                                        <input type="text" class="form-control" id="txtEmpCode" placeholder="Employer Code">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group" style="height:38px;">
+                                                    <label for="txtAltId" class="col-lg-3 control-label">Alternate ID **</label>
+                                                    <div class="col-lg-8">
+                                                        <input type="text" class="form-control" id="txtAltId" placeholder="Alternate ID">
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <div class="form-group" style="height:38px;">
+                                                    <div class="col-lg-11" style="padding: 0px;">
+                                                        <textarea class="form-control" readonly="readonly" rows="5" id="remarks" placeholder="Enter comments" wrap="hard">** The employers listed below do not allow access to employee information by entering an SSN. Please choose "Alternate ID Option" if the employee works for one of these employers : 10396 - State of California, 10716 - TX Dept of Criminal Justice Human Resources HQ Employee Svs, 14817 - Oregon State University. If Alternate ID is used, Employer Name or Employer Code must also be entered.
+                                                      </textarea>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="checkStatus">
+                            <!--[START] This block is for the Check Status Tab -->
+
+                            <div class="row">
+                                <div class='col-lg-8'>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">Order History</div>
+                                        <div class="panel-body">
+                                            <input type="hidden" id="selectedOrderId" />
+                                            <input type="hidden" id="selectedProductName" />
+                                            <table class="table table-hover table-bordered" id="tblOrders">
+                                                <thead class="thead-default">
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Date</th>
+                                                        <th>Order Number</th>
+                                                        <th>Product</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                            <div class="panel panel-default" id="divNoOrders" style="display: none; background-color: #e3eddf;">
+                                                <div class="panel-body">
+                                                    There are no reports/orders available for this loan.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default" id="orderComments" style="display: none;">
+                                        <div class="panel-heading">Order Comments</div>
+                                        <div class="panel-body">
+                                            Test
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-lg-4'>
+                                    <div class="row">
+                                        <button type="button" id="btnSendUpdate" class="btn btn-link">
+                                            <span class="glyphicon glyphicon-upload"></span>
+                                            Send Update                                           
+                                        </button>
+                                    </div>
+                                    <div class="row">
+                                        <button type="button" class="btn btn-default" id="btnViewDocuments" style="width: 100%;">View Documents in eFolder</button>
+                                    </div>
+                                    <div class="row" style="margin-top: 5px; display: none;" id="downloadedDocs">
+                                        <div class="panel panel-primary">
+                                            <div class="panel-heading">Documents Downloaded</div>
+                                            <div class="panel-body" style="background-color: silver;">
+                                                <div id="orderDocuments">
+                                                </div>
+                                                <div class="panel panel-default" id="divNoDocuments" style="display: none; background-color: #e3eddf;">
+                                                    <div class="panel-body">
+                                                        There are no documents/attachments available for this Order Id.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--[END] This block is for the Check Status Tab -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--[END] This block is for the Second Row -->
+
+
+        </form>
+    </div>
+
+    <!-- This block is for the Footer -->
+    <div class="footer navbar-fixed-bottom" style="padding: 2px; background-color: #ecf0f1;">
+        <!--[START] This block is for the footer -->
+        <div class="row">
+
+            <div style="padding: 5px;">
+                <div class="col-lg-2">
+                    <!--<button type="reset" class="btn btn-info" id="btnRefresh">Refresh Lists</button>-->
+                    <button type="button" class="btn btn-info" id="btnUpdateStatus" style="display: none;">Update Status</button>
+                </div>
+                <div class="col-lg-10" style="text-align: right;">
+                    <button type="button" class="btn btn-primary" id="btnSubmit">Submit Order</button>
+                    <button type="button" class="btn btn-primary" id="btnClose">Close</button>
+                </div>
+            </div>
+
+        </div>
+        <!--[END] This block is for the footer -->
+    </div>
+    <script src="lib/js/jquery-3.2.1.min.js"></script>
+    <script src="lib/js/bootstrap.min.js"></script>
+    <script src="lib/js/bootstrap-datepicker.min.js"></script>
+    <script src="lib/js/bootstrap-waitingfor.js"></script>
+    <script src="lib/js/bootstrap-table.js"></script>
+    <script src="lib/js/respond.min.js"></script>
+    <script type="text/javascript">
+
+        // these values get injected in
+        var transactionId = '{{transactionId}}';
+        var partnerAPIUrl = '{{APIUrl}}';
+        var getUIEndPoint = 'api/ui/';
+        var requestEndPoint = 'api/request/';
+        var statusCheckEndPoint = 'api/status/';
+
+        // Insert default values if injection didn't happen
+        if (transactionId.toLowerCase().indexOf('{\{') == 0)
+            transactionId = 'GUID';
+        if (partnerAPIUrl.toLowerCase().indexOf('{\{') == 0)
+            partnerAPIUrl = 'https://partnerAPIUrl.test/';
+
+        var statusInterval = null;
+        var _OrderProcessMessage = 'Please wait while your order is being processed..';
+        var _CheckStatusMessage = 'Checking status of order number #orderno#. please wait..';
+        var _ErrorMessage = 'There was an error processing the request. Request timed out.';
+        var _OrderStatusTimeout = 30; // This is a timeout for checking the order acknowledgement status.
+
+        var _LoanPurpose = null;
+        var _MortgageType = null;
+        var _LoanAmount = null;
+        var _PurchasePrice = null;
+        var _BorrowerState = null;
+        var _OrderHistory = null;
+        var _StatusCheckTimeout = 0;
+        var _IsAuthenticated = false;
+        var attachments = [];
+        var entityRef = {};
+        var _ProductName = 'EV4506T';
+
+        //Below variable stores curretnly which efolder browse
+        //button has been clicked as same modal popup being used in 3 places
+        var _WhichBrowseButton = '';
+
+        var _FourfiftysixtProducts = '';
+        var _EmpIncomeVerif = '';
+        var _SsnVerification = false;
+        var _Transcriptyears = [];
+
+        var $body = $("body");
+
+        var _IsProgressOn = false;
+
+        function ShowProgressBar(message) {
+
+            if (typeof message == 'undefined' || message == null)
+                waitingDialog.show('Processing your request..', { rtl: false });
+            else
+                waitingDialog.show(message, { rtl: false });
+
+            _IsProgressOn = true;
+        }
+
+        function HideProgressBar() {
+            waitingDialog.hide();
+            _IsProgressOn = false;
+        }
+
+        $(document).ready(function () {
+
+            // Disable fields by default.
+            DisableFields();
+
+            // Initialize the Partner UI.
+            GetUI();
+
+            // Events
+            $('.date-picker').datepicker({
+                format: 'mm/dd/yyyy'
+            }).on('changeDate', function () {
+                $(this).datepicker('hide');
+            });
+
+            $("#disclosureDate").datepicker("option", "disabled", false);
+
+            // Submit button click event
+            $('#btnSubmit').on('click', function () {
+
+                var action = $(this).data('action');
+
+                if (action == 'checkstatus') {
+                    var orderId = $('#selectedOrderId').val();
+                    CheckRequestStatus(orderId);
+                }
+                else {
+                    SubmitRequest();
+                }
+
+            });    
+
+            // On click event for More Info Link on the header
+            $('#lnkMoreInfo').on('click', function () {
+                $('#loginModal').modal('show');
+            });
+
+            // Add Attachments button click event
+            $('#btnfourfiveBrowseEncFolder').on('click', function () {
+                $('#addAttachmentsModal').modal('show');
+                $("#addAttachmentsModal").css("z-index", "1500");
+                $('#eFoldertitleText').html('eFolder document and attachments');
+                $('#divOrderDetails').hide();
+                $('#btnAttachClose').text('Ok');
+                _WhichBrowseButton = 'fourfive';
+            });
+
+            $('#btnSSABrowseEncFolder').on('click', function () {
+                $('#addAttachmentsModal').modal('show');
+                $("#addAttachmentsModal").css("z-index", "1500");
+                $('#eFoldertitleText').html('eFolder document and attachments');
+                $('#divOrderDetails').hide();
+                $('#btnAttachClose').text('Ok');
+                _WhichBrowseButton = 'ssa';
+            });
+
+            $('#btnVOEBrowseEncFolder').on('click', function () {
+                $('#addAttachmentsModal').modal('show');
+                $("#addAttachmentsModal").css("z-index", "1500");
+                $('#eFoldertitleText').html('eFolder document and attachments');
+                $('#divOrderDetails').hide();
+                $('#btnAttachClose').text('Ok');
+                _WhichBrowseButton = 'voe';
+            });
+
+            $('#btnSendUpdate').on('click', function () {
+
+                if ($('#selectedOrderId').val() == '')
+                {
+                    ShowWarningMessage("Select an order");
+                    return;
+                }
+
+                $('#addAttachmentsModal').modal('show');
+                $("#addAttachmentsModal").css("z-index", "1500");
+                $('#eFoldertitleText').html('Send Update');
+                $('#divOrderDetails').show();
+                $('#btnAttachClose').text('Send');
+                _WhichBrowseButton = 'sendupdate';
+            });
+
+            //This method allows only numeric values
+            $("#txtBorMonthlyIncome, #txtCoBorMonthlyIncome, #txtCorpZip, #txtEINNumber, #txtSalaryKey").keypress(function (event) {
+                return /\d/.test(String.fromCharCode(event.keyCode));
+            });
+
+            //if 'txtEmpName' is not empty, then 'txtEmpCode' should be disabled like wise
+            //if both are empty, then both should be enabled
+            $("#txtEmpName, #txtEmpCode").keyup(function () {
+                if ($('#txtEmpName').val() != '') {
+                    $('#txtEmpCode').val('');
+                    $('#txtEmpCode').attr('disabled', 'disabled');
+                }
+                else if ($('#txtEmpCode').val() != '') {
+                    $('#txtEmpName').val('');
+                    $('#txtEmpName').attr('disabled', 'disabled');
+                }
+                else if ($('#txtEmpName').val() == '' && $('#txtEmpCode').val() == '') {
+                    $('#txtEmpName').removeAttr('disabled');
+                    $('#txtEmpCode').removeAttr('disabled');
+                }
+            });
+
+
+
+            $('#btnAttachClose').on('click', function () {
+
+                var attachment = {};
+                attachments = [];
+
+                var attachementIds = '';
+                $('#tblefolderdocList').find('input:checkbox:checked').each(function () {
+                    docAttacharray = this.value.split(",");
+
+                    for (i = 0; i < docAttacharray.length; i++) {
+                        var prop = [];
+                        prop = docAttacharray[i].split(':');
+
+                        if (typeof attachment.entityId != 'undefined' && attachment.entityId != '') {
+                            console.log('attachment.entityId:' + attachment.entityId);
+                            attachments.push(attachment);
+                            attachment = {};
+                        }
+
+                        if (prop[0] == 'entityId') {
+                            attachment.entityId = prop[1];
+                            attachment.entityType = 'urn:elli:eFolder';
+                            console.log('attachment.entityId:' + attachment.entityId);
+
+                            if (attachementIds == '')
+                                attachementIds = attachment.entityId;
+                            else
+                                attachementIds = attachementIds + ',' + attachment.entityId;
+                        }
+                    }
+
+                    //last attachment
+                    if (typeof attachment.entityId != 'undefined' && attachment.entityId != '') {
+                        console.log('attachment.entityId:' + attachment.entityId);
+                        attachments.push(attachment);
+                        attachment = {};
+                    }
+
+                });
+
+                if (attachementIds == '') {
+                    ShowWarningMessage('Select eFolder attachment(s).');
+                    return false;
+                }
+
+                console.log('_WhichBrowseButton:' + _WhichBrowseButton);
+
+                if (_WhichBrowseButton == 'fourfive')
+                    $('#txtSigned4506T').val(attachementIds);
+                else if (_WhichBrowseButton == 'ssa')
+                    $('#txtSignedSSA89').val(attachementIds);
+                else if (_WhichBrowseButton == 'voe')
+                    $('#txtAuthForm').val(attachementIds);
+
+                if ($('#btnAttachClose').text() == 'Send') {
+                    console.log('Send Clicked');
+                    UpdateRequest();
+                }
+                else {
+                    console.log('Ok Clicked');
+                }
+
+                //Reset hidden fields
+                $('#selectedOrderId').val('');
+                $('#selectedProductName').val('');
+            });
+
+            // Request Type radio button change event
+            $('input[name=radioRequestType]').on('change', function () {
+
+                var selectedValue = $(this).val();
+
+                DisableFields();
+
+                if (selectedValue == 'new') {
+                    $('#btnSubmit').text('Submit Order');
+                }
+                //else if (selectedValue == 'existing') {
+                //    $('#btnSubmit').text('Update Order');
+                //    $('#existingOrdersList').removeAttr('disabled');
+                //}
+                //else if (selectedValue == 'quote')
+                //    $('#btnSubmit').text('Rate Quote');
+            });
+
+            // Products radio change button event
+            $(document).on('change', 'input[name=products]', function () {
+                $('.radiolist').removeClass('selected');
+
+                if ($(this).is(':checked'))
+                    $(this).parent().parent().addClass('selected');
+            });
+
+            // Property Characteristics checkbox change event
+            $(document).on('change', 'input[name=propertycharacteristics]', function () {
+                if ($(this).is(':checked'))
+                    $(this).parent().parent().addClass('selected');
+                else
+                    $(this).parent().parent().removeClass('selected');
+            });
+
+            // Tab Change event
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+
+                var target = $(e.target).attr("href");
+                if ((target == '#checkStatus')) {
+                    GetUI();
+                    $('#btnRefresh').css('display', 'none');
+                    $('#btnSubmit').text('Check Status');
+                    $('#btnSubmit').data('action', 'checkstatus');
+                    $('#btnSubmit').attr('disabled', 'disabled');
+                    //$('#btnUpdateStatus').css('display', 'inline'); // update status not supported in v1
+                } else {
+                    $('#btnRefresh').css('display', 'inline');
+                    $('#btnSubmit').text('Submit Order');
+                    $('#btnSubmit').data('action', 'submit');
+                    $('#btnSubmit').removeAttr('disabled');
+                    //$('#btnUpdateStatus').css('display', 'none');
+                }
+            });
+
+            // tab change event that checks if the user is authenticated
+            //$('#tabContainer a').click(function (e) {
+            //    e.preventDefault();
+            //    if ($(e.target).attr("href") == '#checkStatus' && !_IsAuthenticated) {
+            //        ShowErrorMessage('Please enter a valid Username and password.');
+            //        return false;
+            //    }
+            //    else
+            //        $(this).tab('show');
+            //});
+
+            InitializeContactsEvents();
+
+            // event for displaying order attachments
+            $(document).on('click', '.order-row', function () {
+                var transactionId = $(this).data('transactionId');
+                var orderDocuments = $(this).data('documents');
+                var orderStatus = $(this).data('orderstatus');
+                $('#selectedOrderId').val($(this).data('orderid'));
+                $('#selectedProductName').val($(this).data('productname'));
+
+                console.log("prod Name:" + $(this).data('productname'));
+
+                // remove selected class from all the rows
+                $('.order-row').removeClass('selected');
+
+                // add selected class in the selected row
+                $(this).addClass('selected');
+
+                console.log('transactionId:' + transactionId + ',orderDocuments:' + orderDocuments + ',orderStatus:' + orderStatus + ', Hidden val order num:' + $('#selectedOrderId').val() + ', Hidden val product name:' + $('#selectedProductName').val());
+
+                // disabled the order status button if the order is complete
+                if (orderStatus == 'Completed') {
+                    $('#btnSubmit').attr('disabled', 'disabled');
+                    $('#btnSendUpdate').attr('disabled', 'disabled');
+                }
+                else {
+                    $('#btnSubmit').removeAttr('disabled');
+                    $('#btnSendUpdate').removeAttr('disabled');
+                    $('#divOrderNumber').html($('#selectedOrderId').val());
+                    $('#divProductName').html($('#selectedProductName').val());
+                }
+
+                if (typeof orderDocuments != 'undefined' && orderDocuments != '') {
+
+                    $('#orderDocuments').html('');
+                    $('#downloadedDocs').hide();
+                    $('#divNoDocuments').hide();
+                    $('#orderDocuments').show();
+
+                    if (orderDocuments != null) {
+
+                        var documentPanel = $('<div class="panel-group" id="accordion">');
+
+                        for (var i = 0; i < orderDocuments.length; i++) {
+
+                            var panelDocument = GetOrderDocumentPanel(orderDocuments[i].name, orderDocuments[i].attachments);
+                            $(documentPanel).append(panelDocument);
+                            $('#orderDocuments').append($(documentPanel));
+                        }
+
+                        $('#downloadedDocs').show();
+                    }
+                    else
+                        $('#divNoDocuments').show();
+                }
+                else {
+                    $('#divNoDocuments').show();
+                    $('#orderDocuments').hide();
+                    $('#downloadedDocs').hide();
+                }
+            });
+
+
+            $('#updateOrderStatus').on('click', function () {
+                // Do Nothing
+            });
+
+            $('#messageModal').on('hidden.bs.modal', function () {
+                HideProgressBar();
+            });
+
+            $('#errorModal').on('hidden.bs.modal', function () {
+                HideProgressBar();
+            });
+
+        });
+
+        function GetOrderDocumentPanel(documentName, attachments) {
+
+            var docName = documentName.replace(' ', '_');
+            var panel = $('<div class="panel panel-default">');
+            var panelHeading = $('<div class="panel-heading"><h4 class="panel-title"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#' + docName + '">' + documentName + '</a></h4></div>');
+            var panelCollapse = $('<div id="' + docName + '" class="panel-collapse collapse">');
+            var panelAttachments = $('<div class="panel-body">');
+
+            if (attachments != null && attachments.length > 0) {
+                var listGroup = $('<div class="list-group">');
+
+                for (var j = 0; j < attachments.length; j++) {
+                    $(listGroup).append('<a href="#" class="list-group-item">' + attachments[j].name + '</a>');
+                }
+
+                $(panel).append(panelHeading);
+                $(panelAttachments).append($(listGroup));
+                $(panelCollapse).append(panelAttachments);
+                $(panel).append(panelCollapse);
+
+                return $(panel);
+            }
+        }
+
+        function InitializeContactsEvents() {
+
+            $('#contactAgent').on('change', function () {
+
+                var contactAgent = $('#contactAgent option:selected').text();
+
+                var selectedValue = $(this).val();
+
+                $('#contactAgentName').val('');
+                $('#contactType1').val(0);
+                $('#contactType1Text').val('');
+
+                $('#contactType2').val(0);
+                $('#contactType2Text').val('');
+
+                $('#contactAgentName').attr('placeholder', contactAgent + ' Name');
+
+                if (selectedValue != '0') {
+
+                    $('#contactAgentName').removeAttr('disabled');
+
+                    $('#contactType1').removeAttr('disabled');
+                    $('#contactType1Text').removeAttr('disabled');
+
+                    $('#contactType2').removeAttr('disabled');
+                    $('#contactType2Text').removeAttr('disabled');
+                }
+                else {
+                    $('#contactAgentName').val('');
+                    $('#contactAgentName').attr('disabled', 'disabled');
+
+                    $('#contactType1').attr('disabled', 'disabled');
+
+                    $('#contactType1Text').val('');
+                    $('#contactType1Text').attr('disabled', 'disabled');
+
+                    $('#contactType2').attr('disabled', 'disabled');
+
+                    $('#contactType2Text').val('');
+                    $('#contactType2Text').attr('disabled', 'disabled');
+                }
+            });
+
+            // Contact Agent Name Textbox change event
+            $('#contactAgentName').on('change', function () {
+                var currentVal = $(this).val();
+                var contactType = $('#contactAgent').val();
+                var contactTypeName = $('#contactAgent option:selected').text().toLowerCase();
+
+                $('#' + contactTypeName + 'DtlsName').val(currentVal);
+            });
+
+            // Contact Type 1 Textbox change event
+            $('#contactType1Text').on('change keyup paste mouseup', function () {
+                var currentVal = $(this).val();
+                var contactType = $('#contactAgent').val();
+                var selectedContactType = $('#contactType1 option:selected').text();
+                var contactTypeName = $('#contactAgent option:selected').text().toLowerCase();
+
+                $('#' + contactTypeName + 'DtlsContactType1').val(selectedContactType + ':' + currentVal);
+                $('#' + contactTypeName + 'DtlsContactType1').data('contact-type', selectedContactType);
+                $('#' + contactTypeName + 'DtlsContactType1').data('value', $('#contactType1').val());
+            });
+
+            // Contact Type 2 Textbox change event
+            $('#contactType2Text').on('change keyup paste mouseup', function () {
+                var currentVal = $(this).val();
+                var contactType = $('#contactAgent').val();
+                var selectedContactType = $('#contactType2 option:selected').text();
+                var contactTypeName = $('#contactAgent option:selected').text().toLowerCase();
+
+                $('#' + contactTypeName + 'DtlsContactType2').val(selectedContactType + ':' + currentVal);
+                $('#' + contactTypeName + 'DtlsContactType2').data('contact-type', selectedContactType);
+                $('#' + contactTypeName + 'DtlsContactType2').data('value', $('#contactType2').val());
+            });
+        }
+
+        function DisableFields() {
+            $('#existingOrdersList').attr('disabled', 'disabled');
+            $('#tblOrders').hide();
+            $('#divNoOrders').show();
+        }
+
+        // This method is used for exception handing on AJAX calls
+        function HandleException(request, message, error) {
+            var msg = "";
+            msg += "Code: " + request.status + "\n";
+            msg += "Text: " + request.statusText + "\n";
+            if (request.responseJSON != null) {
+                msg += "Message" +
+                    request.responseJSON.Message + "\n";
+            }
+
+            HideProgressBar();
+
+            if (request.status != 200) {
+                clearInterval(statusInterval);
+                statusInterval = null;
+                ShowErrorMessage(_ErrorMessage);
+            }
+        }
+
+        function HandleCustomException(Message) {
+
+            console.log("Message:" + Message);
+            HideProgressBar();
+
+            if (Message != '') {
+                clearInterval(statusInterval);
+                statusInterval = null;
+                ShowErrorMessage(Message);
+            }
+        }
+
+        // This method will populate data that comes back from the Get Origin response
+        function PopulateGetOriginData(response) {
+
+            entityRef = {};
+
+            // populate borrower information
+            if (typeof response != 'undefined' && response != '' && typeof response.originResponse != 'undefined' && response.originResponse != null && typeof response.originResponse.loanData != 'undefined' && response.originResponse.loanData != null) {
+
+                // populate Loan Information
+                if (typeof response.originResponse.loanData.Applications != 'undefined' && response.originResponse.loanData.Applications != null && response.originResponse.loanData.Applications.length > 0) {
+
+                    entityRef.entityId = response.originResponse.loanData.EncompassId + '#' + response.originResponse.loanData.Applications[0].Id;
+                    entityRef.entityType = 'urn:elli:encompass:loan:borrower';
+
+                    if (response.originResponse.loanData.Applications[0].Borrower) {
+                        var borrowerName = response.originResponse.loanData.Applications[0].Borrower.FullNameWithSuffix;
+                        $('#inputBorrower').text(borrowerName);
+
+                        // populating payment tab
+                        if (borrowerName != '') {
+                            $('#accountHolderFirstName').val(borrowerName.split(' ')[0]);
+                            $('#accountHolderLastName').val(borrowerName.split(' ')[1]);
+
+                            $('#borrowerName').val(borrowerName);
+                        }
+
+                        var borMonthlyIncomeAmount = response.originResponse.loanData.Applications[0].Borrower.BaseMonthlyIncomeAmount;
+                        var coBorMonthlyIncomeAmount = response.originResponse.loanData.Applications[0].Coborrower.BaseMonthlyIncomeAmount;
+
+                        console.log("borMonthlyIncomeAmount:" + borMonthlyIncomeAmount);
+
+                        if (borMonthlyIncomeAmount != null)
+                            $('#txtBorMonthlyIncome').val(borMonthlyIncomeAmount);
+
+                        if (coBorMonthlyIncomeAmount != null)
+                            $('#txtCoBorMonthlyIncome').val(coBorMonthlyIncomeAmount);
+                    }
+
+                    if (response.originResponse.loanData.Applications[0].Coborrower) {
+                        var coBorrowerName = response.originResponse.loanData.Applications[0].Coborrower.FullNameWithSuffix;
+                        $('#inputCoBorrower').text(coBorrowerName);
+                    }
+                }
+
+                var loanNumber = response.originResponse.loanData.LoanNumber;
+                $('#inputLoanNumber').text(loanNumber);
+
+                if (typeof response.originResponse.loanData.Property != 'undefined' && response.originResponse.loanData.Property != null) {
+                    var loanPurposeType = response.originResponse.loanData.Property.LoanPurposeType;
+
+                    console.log('loanPurposeType:' + loanPurposeType);
+
+                    //Refer Encompass field xml
+                    if (loanPurposeType == 'ConstructionToPermanent')
+                        loanPurposeType = 'Construction - Perm';
+                    else if (loanPurposeType == 'NoCash-Out Refinance')
+                        loanPurposeType = 'No Cash-Out Refi';
+                    else if (loanPurposeType == 'ConstructionOnly')
+                        loanPurposeType = 'Construction';
+                    else if (loanPurposeType == 'Cash-Out Refinance')
+                        loanPurposeType = 'Cash-Out Refi';
+                    else
+                        loanPurposeType = loanPurposeType;
+
+                    $('#inputTransactionType').text(loanPurposeType);
+                }
+
+                // populate property information
+                if (typeof response.originResponse.loanData.Property != 'undefined' && response.originResponse.loanData.Property != null) {
+                    var propertyAddress = response.originResponse.loanData.Property.StreetAddress + ', ' + response.originResponse.loanData.Property.City + '. ' + response.originResponse.loanData.Property.State + '. ' + response.originResponse.loanData.Property.PostalCode;
+                    var propertyCounty = response.originResponse.loanData.Property.County;
+
+                    $('#inputPropertyAddress').text(propertyAddress);
+                    $('#inputPropertyCounty').text(propertyCounty);
+
+                    // populating borrower info in loan/property tab
+                    $('#borrowerAddress').val(response.originResponse.loanData.Property.StreetAddress);
+                    $('#borrowerCity').val(response.originResponse.loanData.Property.City);
+                    $('#borrowerState').val(response.originResponse.loanData.Property.State);
+                    $('#borrowerZip').val(response.originResponse.loanData.Property.PostalCode);
+
+                    // populating payment tab
+                    $('#creditCardBillingAddress').val(response.originResponse.loanData.Property.StreetAddress);
+                    $('#creditCardBillingCity').val(response.originResponse.loanData.Property.City);
+                    $('#creditCardBillingState').val(response.originResponse.loanData.Property.State);
+                    $('#creditCardBillingZip').val(response.originResponse.loanData.Property.PostalCode);
+
+                    _LoanPurpose = response.originResponse.loanData.Property.LoanPurposeType;
+                    _BorrowerState = response.originResponse.loanData.Property.State;
+                }
+
+                if (typeof response.originResponse.loanData.MortgageType != 'undefined' && response.originResponse.loanData.MortgageType != null)
+                    _MortgageType = response.originResponse.loanData.MortgageType;
+
+                if (typeof response.originResponse.loanData.BorrowerRequestedLoanAmount != 'undefined' && response.originResponse.loanData.BorrowerRequestedLoanAmount != null) {
+                    _LoanAmount = '$' + Number(response.originResponse.loanData.BorrowerRequestedLoanAmount).toLocaleString();
+                    $('#inputLoanAmount').text(_LoanAmount);
+                }
+
+                if (typeof response.originResponse.loanData.PurchasePriceAmount != 'undefined' && response.originResponse.loanData.PurchasePriceAmount != null) {
+                    _PurchasePrice = '$' + Number(response.originResponse.loanData.PurchasePriceAmount).toLocaleString();
+                    $('#inputPurchasePrice').text(_PurchasePrice);
+                }
+
+                if (typeof response.originResponse.loanData.LenderCaseIdentifier != 'undefined') {
+                    $('#inputLoanReference').text(response.originResponse.loanData.LenderCaseIdentifier);
+                }
+
+                if (typeof response.originResponse.loanData.AgencyCaseIdentifier != 'undefined') {
+                    $('#inputFHACaseNum').text(response.originResponse.loanData.AgencyCaseIdentifier);
+                }
+
+                // this code will show 
+                if (typeof response.originResponse.credentials != 'undefined') {
+                    var username = response.originResponse.credentials['UserName'];
+                    var password = response.originResponse.credentials['Password'];
+                    $('#inputUserName').val(username);
+                    $('#inputPassword').val(password);
+                    //$('#loginModal').modal('show');
+                }
+                else {
+                    $('#loginModal').modal('show');
+                }
+
+                if (typeof response != 'undefined' && response != '' && typeof response.originResponse != 'undefined' && response.originResponse != null && typeof response.originResponse.orderHistory != 'undefined' && response.originResponse.orderHistory != null) {
+                    _OrderHistory = response.originResponse.orderHistory;
+
+                    // this method will populate the order history
+                    PopulateHistory();
+                }
+
+                if (typeof response != 'undefined' && response != '' && typeof response.originResponse != 'undefined' && response.originResponse != null && typeof response.originResponse.documents != 'undefined' && response.originResponse.documents != null)
+                {
+                    var efolderdocList = response.originResponse.documents;
+
+                    if (efolderdocList != null) {
+                        
+                        $("#tblefolderdocList > tbody").html("");
+
+                        for (var i = 0; i < efolderdocList.length; i++) {
+                            if (efolderdocList[i].attachments != null && typeof efolderdocList[i].attachments != 'undefined' && efolderdocList[i].attachments.length > 0) {
+                                $("#tblefolderdocList").append('<tr><td><a href="#" onClick="fnShowHideRow(' + i + ',' + efolderdocList[i].attachments.length + ')"><span id=' + 'parent' + i + ' class="glyphicon glyphicon-plus"></span></a></td><td>' + efolderdocList[i].title + '</td><td>' + efolderdocList[i].applicationName + '</td><td>' + efolderdocList[i].milestoneId + '</td><td>' + efolderdocList[i].status + '</td><td>' + efolderdocList[i].statusDate + '</td></tr>');
+
+                                for (var j = 0; j < efolderdocList[i].attachments.length; j++) {
+                                    $("#tblefolderdocList").append('<tr id=' + 'child' + i + '-' + j + ' style="display:none;"><td></td><td colspan="5"><input type="checkbox" id=' + 'chkAttc' + j + ' value="entityId:' + efolderdocList[i].attachments[j].entityId + ',entityType:' + efolderdocList[i].attachments[j].entityType + ',entityName:' + efolderdocList[i].attachments[j].entityName + '"> <b>Name:</b> ' + efolderdocList[i].attachments[j].entityName + ', <b>Type:</b> ' + efolderdocList[i].attachments[j].entityType + '</td>');
+                                    $("#tblefolderdocList").append('</tr>');
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        function fnShowHideRow(parentnumber, count) {
+
+            for (var i = 0; i < count; i++) {
+                if (document.getElementById('child' + parentnumber + '-' + i).style.display == "")
+                    document.getElementById('child' + parentnumber + '-' + i).style.display = "none";
+                else
+                    document.getElementById('child' + parentnumber + '-' + i).style.display = "";
+            }
+
+            if (document.getElementById('parent' + parentnumber).className == "glyphicon glyphicon-plus")
+                document.getElementById('parent' + parentnumber).className = "glyphicon glyphicon-minus";
+            else
+                document.getElementById('parent' + parentnumber).className = "glyphicon glyphicon-plus";
+        }
+
+        // This method will populate data that comes back from the UI Response (it will have the list of products, property characteristics, Loan Purpose, Loan Type etc)
+        function PopulateUIResponseData(response) {
+
+            console.log("PopulateUIResponseData:" + response);
+
+            if (response != null && response.getUIDataResponse != null && response.getUIDataResponse.inputFields != null) {
+
+                // Enable the Submit button if the response is successful
+                $('#btnSubmit').removeAttr('disabled');
+                _IsAuthenticated = true;
+
+                var efolderdocList = GetItemsList(response.getUIDataResponse.inputFields, 'documents');
+
+                // Displaying Products List here
+                if (efolderdocList != null) {
+                    
+                    $("#tblefolderdocList > tbody").html("");
+
+                    for (var i = 0; i < efolderdocList.length; i++) {
+                        if (efolderdocList[i].attachments != null && typeof efolderdocList[i].attachments != 'undefined' && efolderdocList[i].attachments.length > 0) {
+                            $("#tblefolderdocList").append('<tr><td><a href="#" onClick="fnShowHideRow(' + i + ',' + efolderdocList[i].attachments.length + ')"><span id=' + 'parent' + i + ' class="glyphicon glyphicon-plus"></span></a></td><td>' + efolderdocList[i].title + '</td><td>' + efolderdocList[i].applicationName + '</td><td>' + efolderdocList[i].milestoneId + '</td><td>' + efolderdocList[i].status + '</td><td>' + efolderdocList[i].statusDate + '</td></tr>');
+
+                            for (var j = 0; j < efolderdocList[i].attachments.length; j++) {
+                                $("#tblefolderdocList").append('<tr id=' + 'child' + i + '-' + j + ' style="display:none;"><td></td><td colspan="5"><input type="checkbox" id=' + 'chkAttc' + j + ' value="entityId:' + efolderdocList[i].attachments[j].entityId + ',entityType:' + efolderdocList[i].attachments[j].entityType + ',entityName:' + efolderdocList[i].attachments[j].entityName + '"> <b>Name:</b> ' + efolderdocList[i].attachments[j].entityName + ', <b>Type:</b> ' + efolderdocList[i].attachments[j].entityType + '</td>');
+                                $("#tblefolderdocList").append('</tr>');
+                            }
+                        }
+                    }
+                }
+            }
+            else {
+                ShowErrorMessage('Username and/or password is not correct.');
+                _IsAuthenticated = false;
+            }
+
+            PopulateHistory();
+        }
+
+        // This method is used to populate the previous order details and the order history
+        function PopulateHistory() {
+
+            // populating the previous order details here
+            if (_OrderHistory != null && typeof _OrderHistory.options != 'undefined') {
+
+                var options = _OrderHistory.options;
+
+                $('#amc').val(options.amc);
+                $('#proceedReceivedDate').val(options.proceedReceivedDate);
+                $('#disclosureDate').val(options.disclosureDate);
+
+                if (options.earlyAppraisalConsent == true)
+                    $('#earlyAppraisalConsent').attr('checked', true);
+
+                $('#earlyAppraisalConsent').val(options.earlyAppraisalConsent);
+                $('#orderedBy').val(options.orderedBy);
+                $('#notificationEmail').val(options.notificationEmail);
+                $('#dueDate').val(options.dueDate);
+
+                if (options.rushOrder == true)
+                    $('#chkRushOrder').attr('checked', true);
+
+                if (options.complexProperty == true)
+                    $('#chkComplex').attr('checked', true);
+
+                $('#orderComments').val(options.orderComments);
+                $('#loanPurpose').val(options.loanPurpose);
+                $('#loanType').val(options.loanType);
+                $('#occupancy').val(options.occupancy);
+                $('#propertyType').val(options.propertyType);
+                $('#propertyRights').val(options.propertyRights);
+
+                if (typeof options.productId != 'undefined' && options.productId != null) {
+                    $('input[name^="products"]').each(function () {
+                        if ($(this).val() == options.productId) {
+                            $(this).attr('checked', true);
+                            $(this).parent().parent().addClass('selected');
+                        }
+                    });
+                }
+
+                if (typeof options.propertyCharacteristics != 'undefined' && options.propertyCharacteristics != null && options.propertyCharacteristics.length > 0) {
+
+                    var propertyCharacteristicsList = options.propertyCharacteristics;
+
+                    $(propertyCharacteristicsList).each(function (key, value) { //for each element in array
+
+                        $('input[name^="propertycharacteristics"]').each(function () {
+                            if ($(this).val() == value) {
+                                $(this).attr('checked', true);
+                                $(this).parent().parent().addClass('selected');
+                            }
+                        });
+                    });
+                }
+
+                // populating borrower information
+                if (typeof options.borrower != 'undefined' && options.borrower != '') {
+                    var prefix = 'borrower';
+
+                    $('#' + prefix + 'Name').val(options.borrower.name);
+                    $('#' + prefix + 'HomePhone').val(options.borrower.homePhone);
+                    $('#' + prefix + 'WorkPhone').val(options.borrower.workPhone);
+                    $('#' + prefix + 'CellPhone').val(options.borrower.cellPhone);
+                    $('#' + prefix + 'Email').val(options.borrower.email);
+                    $('#' + prefix + 'Address').val(options.borrower.address);
+                    $('#' + prefix + 'City').val(options.borrower.city);
+                    $('#' + prefix + 'State').val(options.borrower.state);
+                    $('#' + prefix + 'Zip').val(options.borrower.zip);
+                }
+
+                // populating coborrower information
+                if (typeof options.coborrower != 'undefined' && options.coborrower != '') {
+                    var prefix = 'coBorrower';
+
+                    $('#' + prefix + 'Name').val(options.coborrower.name);
+                    $('#' + prefix + 'HomePhone').val(options.coborrower.homePhone);
+                    $('#' + prefix + 'WorkPhone').val(options.coborrower.workPhone);
+                    $('#' + prefix + 'CellPhone').val(options.coborrower.cellPhone);
+                    $('#' + prefix + 'Email').val(options.coborrower.email);
+                    $('#' + prefix + 'Address').val(options.coborrower.address);
+                    $('#' + prefix + 'City').val(options.coborrower.city);
+                    $('#' + prefix + 'State').val(options.coborrower.state);
+                    $('#' + prefix + 'Zip').val(options.coborrower.zip);
+                }
+
+                // populating contacts information
+                if (typeof options.contacts != 'undefined' && options.contacts != '') {
+                    var contacts = options.contacts;
+
+                    // populating agent details
+                    if (typeof contacts.agentDetails != 'undefined' && contacts.agentDetails != '' && contacts.agentDetails.name != '') {
+                        var agentDetailsPrefix = 'agentDtls';
+                        var agentDetailsContactType1Name = contacts.agentDetails.contactType1Name + ':' + contacts.agentDetails.contactType1; //agentDetailsContactType1Name + ': ' +
+                        var agentDetailsContactType2Name = contacts.agentDetails.contactType2Name + ':' + contacts.agentDetails.contactType2; //agentDetailsContactType1Name + ': ' +
+
+                        $('#' + agentDetailsPrefix + 'Name').val(contacts.agentDetails.name);
+                        $('#' + agentDetailsPrefix + 'ContactType1').val(agentDetailsContactType1Name);
+                        $('#' + agentDetailsPrefix + 'ContactType1Val').val(contacts.agentDetails.contactType1Val);
+                        $('#' + agentDetailsPrefix + 'ContactType2').val(agentDetailsContactType2Name);
+                        $('#' + agentDetailsPrefix + 'ContactType2Val').val(contacts.agentDetails.contactType2Val);
+
+                        $('#' + agentDetailsPrefix + 'ContactType1').data('contact-type', contacts.agentDetails.contactType1Name);
+                        $('#' + agentDetailsPrefix + 'ContactType2').data('contact-type', contacts.agentDetails.contactType2Name);
+
+                    }
+
+                    // populating broker details
+                    if (typeof contacts.brokerDetails != 'undefined' && contacts.brokerDetails != '' && contacts.brokerDetails.name != '') {
+                        var brokerDetailsPrefix = 'brokerDtls';
+                        var brokerDetailsContactType1Name = contacts.brokerDetails.contactType1Name + ':' + contacts.brokerDetails.contactType1; //brokerDetailsContactType1Name + ': ' +
+                        var brokerDetailsContactType2Name = contacts.brokerDetails.contactType2Name + ':' + contacts.brokerDetails.contactType2; //brokerDetailsContactType1Name + ': ' +
+
+                        $('#' + brokerDetailsPrefix + 'Name').val(contacts.brokerDetails.name);
+                        $('#' + brokerDetailsPrefix + 'ContactType1').val(brokerDetailsContactType1Name);
+                        $('#' + brokerDetailsPrefix + 'ContactType1Val').val(contacts.brokerDetails.contactType1Val);
+                        $('#' + brokerDetailsPrefix + 'ContactType2').val(brokerDetailsContactType2Name);
+                        $('#' + brokerDetailsPrefix + 'ContactType2Val').val(contacts.brokerDetails.contactType2Val);
+
+                        $('#' + brokerDetailsPrefix + 'ContactType1').data('contact-type', contacts.brokerDetails.contactType1Name);
+                        $('#' + brokerDetailsPrefix + 'ContactType2').data('contact-type', contacts.brokerDetails.contactType2Name);
+                    }
+
+                    // populating Occupant details
+                    if (typeof contacts.occupantDetails != 'undefined' && contacts.occupantDetails != '' && contacts.occupantDetails.name != '') {
+                        var occupantDetailsPrefix = 'occupantDetails';
+                        var occupantDetailsContactType1Name = contacts.occupantDetails.contactType1Name + ':' + contacts.occupantDetails.contactType1; //occupantDetailsContactType1Name + ': ' +
+                        var occupantDetailsContactType2Name = contacts.occupantDetails.contactType2Name + ':' + contacts.occupantDetails.contactType2; //occupantDetailsContactType1Name + ': ' +
+
+                        $('#' + occupantDetailsPrefix + 'Name').val(contacts.occupantDetails.name);
+                        $('#' + occupantDetailsPrefix + 'ContactType1').val(occupantDetailsContactType1Name);
+                        $('#' + occupantDetailsPrefix + 'ContactType1Val').val(contacts.occupantDetails.contactType1Val);
+                        $('#' + occupantDetailsPrefix + 'ContactType2').val(occupantDetailsContactType2Name);
+                        $('#' + occupantDetailsPrefix + 'ContactType2Val').val(contacts.occupantDetails.contactType2Val);
+
+                        $('#' + occupantDetailsPrefix + 'ContactType1').data('contact-type', contacts.occupantDetails.contactType1Name);
+                        $('#' + occupantDetailsPrefix + 'ContactType2').data('contact-type', contacts.occupantDetails.contactType2Name);
+                    }
+
+                    // populating Owner details
+                    if (typeof contacts.ownerDetails != 'undefined' && contacts.ownerDetails != '' && contacts.ownerDetails.name != '') {
+                        var ownerDetailsPrefix = 'ownerDetails';
+                        var ownerDetailsContactType1Name = contacts.ownerDetails.contactType1Name + ':' + contacts.ownerDetails.contactType1; //ownerDetailsContactType1Name + ': ' +
+                        var ownerDetailsContactType2Name = contacts.ownerDetails.contactType2Name + ':' + contacts.ownerDetails.contactType2; //ownerDetailsContactType1Name + ': ' +
+
+                        $('#' + ownerDetailsPrefix + 'Name').val(contacts.ownerDetails.name);
+                        $('#' + ownerDetailsPrefix + 'ContactType1').val(ownerDetailsContactType1Name);
+                        $('#' + ownerDetailsPrefix + 'ContactType1Val').val(contacts.ownerDetails.contactType1Val);
+                        $('#' + ownerDetailsPrefix + 'ContactType2').val(ownerDetailsContactType2Name);
+                        $('#' + ownerDetailsPrefix + 'ContactType2Val').val(contacts.ownerDetails.contactType2Val);
+
+                        $('#' + ownerDetailsPrefix + 'ContactType1').data('contact-type', contacts.ownerDetails.contactType1Name);
+                        $('#' + ownerDetailsPrefix + 'ContactType2').data('contact-type', contacts.ownerDetails.contactType2Name);
+                    }
+
+                    // populating Other details
+                    if (typeof contacts.otherDetails != 'undefined' && contacts.otherDetails != '' && contacts.otherDetails.name != '') {
+                        var otherDetailsPrefix = 'otherDetails';
+                        var otherDetailsContactType1Name = contacts.otherDetails.contactType1Name + ':' + contacts.otherDetails.contactType1; //otherDetailsContactType1Name + ': ' +
+                        var otherDetailsContactType2Name = contacts.otherDetails.contactType2Name + ':' + contacts.otherDetails.contactType2; //otherDetailsContactType1Name + ': ' +
+
+                        $('#' + otherDetailsPrefix + 'Name').val(contacts.otherDetails.name);
+                        $('#' + otherDetailsPrefix + 'ContactType1').val(otherDetailsContactType1Name);
+                        $('#' + otherDetailsPrefix + 'ContactType1Val').val(contacts.otherDetails.contactType1Val);
+                        $('#' + otherDetailsPrefix + 'ContactType2').val(otherDetailsContactType2Name);
+                        $('#' + otherDetailsPrefix + 'ContactType2Val').val(contacts.otherDetails.contactType2Val);
+
+                        $('#' + otherDetailsPrefix + 'ContactType1').data('contact-type', contacts.otherDetails.contactType1Name);
+                        $('#' + otherDetailsPrefix + 'ContactType2').data('contact-type', contacts.otherDetails.contactType2Name);
+                    }
+
+                    if (typeof contacts.appointmentContact != 'undefined')
+                        $('#appointmentContact').val(contacts.appointmentContact);
+
+                    if (typeof contacts.branch != 'branch')
+                        $('#branch').val(contacts.branch);
+                }
+            }
+
+            // populating the orders tab here
+            if (_OrderHistory != null && typeof _OrderHistory.orders != 'undefined') {
+                if (_OrderHistory.orders.length > 0) {
+
+                    $('#tblOrders').show();
+                    $('#divNoOrders').hide();
+                    $('#downloadedDocs').hide();
+
+                    var ordersList = _OrderHistory.orders;
+
+                    // removing all the existing rows first before adding new ones
+                    $("#tblOrders > tbody").html("");
+
+                    // removing items from the existing Orders List
+                    $('#existingOrdersList').children().remove();
+
+                    // removing items from the paymentFor List
+                    $('#paymentFor').children().remove();
+                    $('#paymentFor').append('<option value="new">[New Order]</option>');
+
+                    for (var i = 0; i < ordersList.length; i++) {
+                        var rowNumber = i + 1;
+                        var dataDocuments = '';
+                        var date = ordersList[i].orderDateTime;
+                        var statusClass = 'pending';
+
+                        if (typeof ordersList[i].documents != 'undefined' && ordersList[i].documents != '') {
+                            var dataDocs = JSON.stringify(ordersList[i].documents).replace(/"/g, '&quot;'); // need to change this logic
+                            dataDocuments = dataDocs;
+                        }
+
+                        if (typeof ordersList[i].orderStatus != 'undefined' && ordersList[i].orderStatus != '' && ordersList[i].orderStatus == 'In Progress')
+                            statusClass = 'pending';
+                        else if (typeof ordersList[i].orderStatus != 'undefined' && ordersList[i].orderStatus != '' && ordersList[i].orderStatus == 'Completed')
+                            statusClass = 'completed';
+                        else
+                            statusClass = 'otherstatus';
+                        
+
+                        var row = $('<tr class="order-row" data-orderid="' + ordersList[i].id + '" data-documents="' + dataDocuments + '" data-orderstatus="' + ordersList[i].orderStatus + '" data-productname="' + ordersList[i].product + '"></tr>');
+                        $(row).append('<th scope="row">' + rowNumber + '</th>');
+                        $(row).append('<td>' + date + '</td>');
+                        $(row).append('<td>' + ordersList[i].id + '</td>');
+                        $(row).append('<td>' + ordersList[i].product + '</td>');
+                        $(row).append('<td><div class="' + statusClass + '">' + ordersList[i].orderStatus + '</div></td>');
+
+                        $('#tblOrders tbody').append(row);
+
+                        if (ordersList[i].orderStatus != 'Completed') { // should we just add pending orders in the existing orders list?
+                            //also updating the existing order's list dropdown
+                            $('#existingOrdersList').append('<option value="' + ordersList[i].id + '">' + ordersList[i].id + '</option>')
+                        }
+
+                        // updating the payment for list from the Payments tab
+                        $('#paymentFor').append('<option value="' + ordersList[i].id + '">' + ordersList[i].id + '</option>')
+                    }
+                }
+            }
+            else {
+                $('#existingOrdersList').children().remove(); // remove options from the existing orders dropdown list
+                $('#tblOrders').hide();
+                $('#divNoOrders').show();
+                $('#downloadedDocs').hide();
+            }
+        }
+
+        // This method will display a Success Message popup
+        function ShowSuccessMessage(successMessage) {
+            $('#successMessage').text(successMessage);
+            $('#successModal').modal('show');
+            $("#successModal").css("z-index", "1500");
+        }
+
+        // This method will display a Success Message popup
+        function ShowWarningMessage(warningMessage) {
+            $('#warningMessage').text(warningMessage);
+            $('#warningModal').modal('show');
+            $("#warningModal").css("z-index", "1500");
+            waitingDialog.hide();
+        }
+
+        // This method will display an Error Message popup
+        function ShowErrorMessage(errorMessage) {
+            $('#errorMessage').text(errorMessage);
+            $('#errorModal').modal('show');
+            $("#errorModal").css("z-index", "1500");
+            waitingDialog.hide();
+        }
+
+        // Gets the List of Items by Name
+        function GetItemsList(itemsList, name) {
+
+            var list = null;
+
+            if (itemsList != null) {
+                for (var i = 0; i < itemsList.length; i++) {
+                    if (itemsList[i].name == name) {
+                        list = itemsList[i].list;
+                        break;
+                    }
+                }
+            }
+
+            return list;
+        }
+
+        // this method will make a call to the Reference Integration API to get UI Data
+        function GetUI() {
+
+            ShowProgressBar();
+
+            console.log('partnerAPIUrl:' + partnerAPIUrl + ', getUIEndPoint:' + getUIEndPoint + ', transactionId:' + transactionId);
+
+            for (var i = 1; i < 21; i++) {
+                $('#divVariancePercentage select').append('<option value=' + i + '>' + i + '</option>')
+            }
+
+            // Call Web API to get a transaction
+            $.ajax({
+
+                url: partnerAPIUrl + getUIEndPoint + transactionId,
+                crossDomain: true,
+                type: 'GET',
+                dataType: 'html',
+                contentType: 'application/json; charset=utf-8',
+                success: function (response) {
+
+                    console.log('Url:' + partnerAPIUrl + getUIEndPoint + transactionId);
+
+                    HideProgressBar();
+                    if (response != '') {
+
+                        var uiResponse = JSON.parse(response);
+
+                        console.log('Get Origin Response:' + JSON.stringify(uiResponse));
+
+                        if (typeof uiResponse != 'undefined' && uiResponse != '' && typeof uiResponse.originResponse != 'undefined' && uiResponse.originResponse != null && typeof uiResponse.originResponse.details != 'undefined' && uiResponse.originResponse.details != null) {
+                            if (uiResponse.originResponse.details != '') // Error
+                                HandleCustomException(uiResponse.originResponse.code + ' : ' + uiResponse.originResponse.details);
+                        }
+                        else
+                            PopulateGetOriginData(uiResponse); //success
+                    }
+
+                },
+                error: function (request, message, error) {
+                    HandleException(request, message, error);
+                }
+            });
+        }       
+
+        //This method performs required UI validation
+        function UIValidation() {
+
+            //Reset Global variables
+            _Transcriptyears = [];
+            _FourfiftysixtProducts = '';
+            _EmpIncomeVerif = '';
+            _SsnVerification = false;
+
+            //Read
+            var username = $('#txtUserName').val();
+            var password = $('#txtPassword').val();
+
+            var signedfourfive = '';
+
+            var signedssa = '';
+            var signedauth = '';
+
+            var einNumber = $('#txtEINNumber').val();
+            var corpName = $('#txtCorpName').val();
+            var corpAddress = $('#txtCorpAddress').val();
+            var corpCity = $('#txtCorpCity').val();
+            var corpState = $('#txtCorpState').val();
+            var corpZip = $('#txtCorpZip').val();
+            console.log('corpZip:' + corpZip);
+
+            if (username == '' || password == '') {
+                ShowWarningMessage("Enter username and password");
+                return false;
+            }
+
+            $('#div4506T').find('input:checkbox:checked').each(function () {
+                if (_FourfiftysixtProducts == '')
+                    _FourfiftysixtProducts = this.value;
+                else
+                    _FourfiftysixtProducts = _FourfiftysixtProducts + ',' + this.value;
+            });
+
+            $('#divempverif').find('input:radio:checked').each(function () {
+                if (_EmpIncomeVerif == '')
+                    _EmpIncomeVerif = this.value;
+                else
+                    _EmpIncomeVerif = _EmpIncomeVerif + ',' + this.value;
+            });
+
+            signedfourfive = $('#txtSigned4506T').val();
+
+            signedssa = $('#txtSignedSSA89').val();
+            _SsnVerification = $('#chkSSN').is(":checked");
+
+            signedauth = $('#txtAuthForm').val();
+
+            console.log('_FourfiftysixtProducts:' + _FourfiftysixtProducts);
+            console.log('_SsnVerification:' + _SsnVerification);
+
+            if (_FourfiftysixtProducts == '' && _SsnVerification == false && _EmpIncomeVerif == '') {
+                ShowWarningMessage("Select at least one product to continue");
+                return false;
+            }
+
+            //4506-T tab validation
+            if (_FourfiftysixtProducts != '') { //txtSigned4506T
+
+                $('#divTranscriptYear').find('input:checkbox:checked').each(function () {
+                    _Transcriptyears.push(parseInt(this.value));
+                });
+
+                if (_Transcriptyears.length == 0) {
+                    ShowWarningMessage("Select transcript year(s)");
+                    return false;
+                }
+
+                if ($('#chkIncomeVariance').is(':checked')) {
+                    if ($('#txtBorMonthlyIncome').val() == '') {
+                        ShowWarningMessage("Enter borrower monthly income amount");
+                        return false;
+                    }
+                }
+
+                if (_FourfiftysixtProducts.includes('1065') || _FourfiftysixtProducts.includes('1120')) {
+                    if (einNumber == '') {
+                        ShowWarningMessage("Enter EIN number");
+                        return false;
+                    }
+
+                    if (einNumber.length > 9) {
+                        ShowWarningMessage("EIN number has to be 9 digits in length");
+                        return false;
+                    }
+
+                    if (corpName == '') {
+                        ShowWarningMessage("Enter corporate name");
+                        return false;
+                    }
+
+                    if (corpAddress == '') {
+                        ShowWarningMessage("Enter corporate address");
+                        return false;
+                    }
+
+                    if (corpCity == '') {
+                        ShowWarningMessage("Enter corporate city");
+                        return false;
+                    }
+
+                    if (corpState == '') {
+                        ShowWarningMessage("Enter corporate 2 digit state");
+                        return false;
+                    }
+
+                    if (corpZip == '') {
+                        ShowWarningMessage("Enter corporate 5 digit zip code");
+                        return false;
+                    }
+
+                    if (corpZip.length > 5) {
+                        ShowWarningMessage("Zip code has to be 5 digits in length");
+                        return false;
+                    }
+                }
+            }
+
+            //SSN tab validation
+            if (_SsnVerification == true) {
+                if (signedssa == '') {
+                    ShowWarningMessage("Signed SSA-89 form is required");
+                    return false;
+                }
+            }
+
+            //Employment and Income Verification tab
+            if (_EmpIncomeVerif != '') {
+                if (signedauth == '') {
+                    ShowWarningMessage("Authorization form is required");
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        //This method will make create a Request payload
+        function CreateRequest() {
+            var request = {};
+
+            var requestType = 'NewRequest';
+
+            // Building Product Node here
+            var product = {};
+            product.name = _ProductName;
+            product.entityRef = entityRef;
+            request.product = product;
+            request.product.credentials = GetCredentials();
+            request.product.options = GetUserOptions(requestType);
+
+            request.product.attachments = attachments;
+
+            console.log(JSON.stringify(request));
+
+            return request;
+        }
+
+        //This method will make Update Request payload
+        function CreateRequestAttachments() {
+            var request = {};
+
+            // Building Product Node here
+            var product = {};
+            request.product = product;
+
+            request.product.attachments = attachments;
+
+            console.log(JSON.stringify(request));
+
+            return request;
+        }
+
+        // This function will return the option selected by the user
+        function GetUserOptions(requestType) {
+            // Building Options node here
+            var options = {};
+            options.requestType = requestType;
+
+            //Read only if any 4506T product(s) chosen in UI
+            if (_FourfiftysixtProducts != '') {
+
+                options.taxReturnFor = $('#cmbTaxRetunsFor').val();
+
+                if ($('#chk1040').is(':checked'))
+                    options.transcript1040 = $('#cmb1040').val();
+
+                if ($('#chk1065').is(':checked'))
+                    options.transcript1065 = $('#cmb1065').val();
+
+                if ($('#chk1120').is(':checked'))
+                    options.transcript1120 = $('#cmb1120').val();
+
+                if ($('#chkw2').is(':checked'))
+                    options.directW2 = true;
+
+                if ($('#chk1099').is(':checked'))
+                    options.transcript1099 = true;
+
+                if ($('#cmbRequestOptions').val() != '')
+                    options.requestOptions = $('#cmbRequestOptions').val();
+
+                if ($('#txtAdditionalEmail').val() != '')
+                    options.additionalEmail = $('#txtAdditionalEmail').val();
+
+                options.transcriptYears = _Transcriptyears;
+
+                if ($('#chkIncomeVariance').is(':checked')) {
+                    options.calculateIncomeVariance = true;
+                    options.variancePercentage = parseInt($('#cmbVariancePercentage').val());
+                    options.comparisonMethod = $('#cmbComparisonMethod').val();
+                    options.borMonthlyIncomeAmount = parseInt($('#txtBorMonthlyIncome').val());
+                    if ($('#txtCoBorMonthlyIncome').val() != '')
+                        options.coBorMonthlyIncomeAmount = parseInt($('#txtCoBorMonthlyIncome').val());
+                }
+                else
+                    options.incomeVariance = false;
+
+                options.remarks = $('#txt4506TRemarks').val();
+
+                if (_FourfiftysixtProducts.includes('1065') || _FourfiftysixtProducts.includes('1120')) {
+                    options.corpDetail = {};
+                    options.corpDetail.einNumber = $('#txtEINNumber').val();
+                    options.corpDetail.corpName = $('#txtCorpName').val();
+                    options.corpDetail.corpAddress = $('#txtCorpAddress').val();
+                    options.corpDetail.corpCity = $('#txtCorpCity').val();
+                    options.corpDetail.corpState = $('#txtCorpState').val();
+                    options.corpDetail.corpZip - $('#txtCorpZip').val();
+                }
+            }
+
+            //Read only if SSN product chosen in UI
+            if (_SsnVerification == true) {
+                options.ssnVerificationReportOn = $('#cmbSSNReportOn').val();
+
+                if ($('#txtSignedSSA89').val() != '') {
+                    document = {};
+                    document.name = 'Signed SSA89 form';
+                    document.id = $('#txtSignedSSA89').val();
+                    document.fileUrl = '';
+                    options.documents.push(document);
+                }
+
+                options.ssnAdditionalEmail = $('#txtSSNAdditionalEmail').val();
+                options.ssnRemarks = $('#txtSSNRemarks').val();
+            }
+
+            //Read only if VOE/VOIE product chosen in UI
+            if (_EmpIncomeVerif != '') {
+                options.voeReportOn = $('#cmbVOEReportOn').val();
+                options.voeEmployer = $('#cmbEmployer').val();
+
+                if ($('#txtAuthForm').val() != '') {
+                    document = {};
+                    document.name = 'Employment Authorization form';
+                    document.id = $('#txtAuthForm').val();
+                    document.fileUrl = '';
+                    options.documents.push(document);
+                }
+
+                if ($('#txtVOERemarks').val() != '')
+                    options.voeRemarks = $('#txtVOERemarks').val();
+
+                if ($('#txtSalaryKey').val() != '')
+                    options.voeSalaryKey = $('#txtSalaryKey').val();
+
+                if ($('#txtEmpName').val() != '')
+                    options.voeEmployerName = $('#txtEmpName').val();
+
+                if ($('#txtEmpCode').val() != '')
+                    options.voeEmployercode = $('#txtEmpCode').val();
+
+                if ($('#txtAltId').val() != '')
+                    options.voeAlternateID = $('#txtAltId').val();
+            }
+            
+
+            return options;
+        }
+
+        // This method will get the Borrower Information
+        function GetBorrowerInformation() {
+            var borrower = {};
+            borrower.name = $('#inputBorrower').text();
+            return borrower;
+        }
+
+        // This method will get the CoBorrower Information
+        function GetCoBorrowerInformation() {
+            var coBorrower = {};
+            coBorrower.name = $('#inputCoBorrower').text();
+            return coBorrower;
+        }
+
+        // This function will get the User Settings/Credentials Information
+        function GetCredentials() {
+            var credentials = {};
+
+            var username = $('#txtUserName').val();
+            var password = $('#txtPassword').val();
+
+            if (username != '' && password != '') {
+                credentials.userName = username;
+                credentials.password = password;
+            }
+
+            return credentials;
+        }
+
+        // This method will Submit the Request to the Reference Integration
+        function UpdateRequest() {
+
+            var requestData = CreateRequestAttachments();
+            var submitURL = partnerAPIUrl + requestEndPoint + transactionId + '/attachments';
+
+            console.log('Request Update Suibmit URL - ' + submitURL);
+
+            //ShowSuccessMessage("success");
+            //return false;
+
+            ShowProgressBar(_OrderProcessMessage);
+
+            // Call Web API to submit a request
+            $.ajax({
+
+                url: submitURL,
+                crossDomain: true,
+                type: 'POST',
+                data: JSON.stringify(requestData),
+                contentType: 'application/json; charset=utf-8',
+                success: function (response) {
+                    console.log('Update Request Submitted');
+                    //$body.removeClass("loading");
+                    ShowSuccessMessage('Update Request Submitted Successfully');
+                    HideProgressBar();
+                },
+                error: function (request, message, error) {
+                    ShowErrorMessage(request.responseText);
+                }
+            });
+        }
+
+        // This method will Submit the Request to the Reference Integration
+        function SubmitRequest() {
+
+            if (!UIValidation())
+                return;
+
+            var requestData = CreateRequest();
+            var submitURL = partnerAPIUrl + requestEndPoint + transactionId;
+
+            console.log('Create Submit URL - ' + submitURL);
+            
+            ShowProgressBar(_OrderProcessMessage);
+
+            // Call Web API to submit a request
+            $.ajax({
+
+                url: submitURL,
+                crossDomain: true,
+                type: 'POST',
+                data: JSON.stringify(requestData),
+                contentType: 'application/json; charset=utf-8',
+                success: function (response) {
+                    console.log('Request Submitted');
+
+                    // if the request is submitted, then set a timer to check for the Order status every 3 seconds.
+                    statusInterval = setInterval(CheckAcknowledgement, 3000);
+                    
+                },
+                error: function (request, message, error) {
+                    ShowErrorMessage(request.responseText);
+                }
+            });
+        }
+
+        function CheckRequestStatus(orderId) {
+            var checkStatusURL = partnerAPIUrl + statusCheckEndPoint + transactionId + '/' + orderId;
+
+            console.log('Check Status URL - ' + checkStatusURL);
+
+            var checkStatusMessage = _CheckStatusMessage.replace('#orderno#', orderId);
+
+            ShowProgressBar(checkStatusMessage);
+
+            // Call Web API to check request status
+            $.ajax({
+
+                url: checkStatusURL,
+                crossDomain: true,
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                success: function (response) {
+                    console.log(response);
+                    ShowSuccessMessage(response.result.orderMessage);
+                    HideProgressBar();
+
+                    $('a[href="#4506TDirect"]').trigger('click');
+                },
+                error: function (request, message, error) {
+                    HandleException(request, message, error);
+                }
+            });
+        }
+
+        // This method will check the status of a given transaction
+        function CheckAcknowledgement() {
+            var acknowledgementCheckURL = partnerAPIUrl + statusCheckEndPoint + transactionId;
+
+            console.log('Status Check URL - ' + acknowledgementCheckURL);
+
+            if (_StatusCheckTimeout == _OrderStatusTimeout) {
+                console.log("reached Timeout");
+                clearInterval(statusInterval);
+                statusInterval = null;
+                ShowErrorMessage('There was an error processing the request. Request timed out.');
+                HideProgressBar();
+                return;
+            }
+
+            if (!_IsProgressOn)
+                ShowProgressBar(_OrderProcessMessage);
+
+            _StatusCheckTimeout = _StatusCheckTimeout + 1;
+
+            $.ajax({
+                url: acknowledgementCheckURL,
+                crossDomain: true,
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                success: function (response) {
+                    console.log(response);
+                    try {
+                        if (response != null && typeof response.status != 'undefined') {
+                            if (response.status != 'Not Found') {
+
+                                if (typeof response.status.status != 'undefined') {
+                                    if (response.status.status == 'Failed') {
+                                        ShowErrorMessage(response.status.result.orderMessage);
+                                        clearInterval(statusInterval);
+                                        statusInterval = null;
+                                        HideProgressBar();
+                                    }
+                                    else {
+                                        ShowSuccessMessage(response.status.result.orderMessage);
+                                        clearInterval(statusInterval);
+                                        statusInterval = null;
+                                        HideProgressBar();
+                                    }
+                                }
+                                else {
+                                    ShowSuccessMessage(response.status.result.orderMessage);
+                                    clearInterval(statusInterval);
+                                    statusInterval = null;
+                                    HideProgressBar();
+                                }
+                            }
+                        }
+                    }
+                    catch (err) {
+                        ShowErrorMessage(err);
+                        clearInterval(statusInterval);
+                        statusInterval = null;
+                        HideProgressBar();
+                    }
+                },
+                error: function (request, message, error) {
+                    HandleException(request, message, error);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

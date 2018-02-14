@@ -1,0 +1,286 @@
+{
+  "getUIDataResponse": {
+    "inputFields": [
+      {
+        "name": "documents",
+        "list": [
+          {
+            "documentId": "GUID",
+            "titleWithIndex": "Borrower Consent",
+            "applicationName": "Paul and Alice Testco",
+            "milestoneId": "Qualification",
+            "webCenterAllowed": true,
+            "tpoAllowed": true,
+            "thirdPartyAllowed": true,
+            "isRequested": false,
+            "requestedBy": "",
+            "isRerequested": false,
+            "rerequestedBy": "",
+            "daysDue": 0,
+            "isReceived": true,
+            "receivedBy": "jjohn",
+            "daysTillExpire": 0,
+            "isReviewed": false,
+            "reviewedBy": "",
+            "isReadyForUw": false,
+            "readyForUwBy": "",
+            "isReadyToShip": false,
+            "readyToShipBy": "",
+            "dateExpires": "0001-01-01T00:00:00Z",
+            "createdBy": "someuser",
+            "dateCreated": "2017-08-22T17:25:51Z",
+            "title": "Borrower Consent",
+            "description": "",
+            "requestedFrom": "",
+            "applicationId": "_borrower1",
+            "emnSignature": "",
+            "status": "received",
+            "statusDate": "2017-08-22T17:26:24Z",
+            "dateReceived": "2017-08-22T17:26:24Z",
+            "comments": [],
+            "attachments": [
+              {
+                "entityId": "Attachment-GUID.pdf",
+                "entityType": "attachment",
+                "entityName": "file.pdf",
+                "entityUri": "/v1/loans/GUID/attachments/Attachment-GUID.pdf"
+              }
+            ],
+            "roles": [
+              {
+                "entityId": "1",
+                "entityType": "Role",
+                "entityName": "LO",
+                "entityUri": null
+              },
+              {
+                "entityId": "16",
+                "entityType": "Role",
+                "entityName": "ZZ",
+                "entityUri": null
+              },
+              {
+                "entityId": "33",
+                "entityType": "Role",
+                "entityName": "CZ",
+                "entityUri": null
+              },
+              {
+                "entityId": "37",
+                "entityType": "Role",
+                "entityName": "JW",
+                "entityUri": null
+              },
+              {
+                "entityId": "38",
+                "entityType": "Role",
+                "entityName": "T1",
+                "entityUri": null
+              },
+              {
+                "entityId": "39",
+                "entityType": "Role",
+                "entityName": "TR",
+                "entityUri": null
+              },
+              {
+                "entityId": "44",
+                "entityType": "Role",
+                "entityName": "LO",
+                "entityUri": null
+              },
+              {
+                "entityId": "48",
+                "entityType": "Role",
+                "entityName": "sr",
+                "entityUri": null
+              },
+              {
+                "entityId": "52",
+                "entityType": "Role",
+                "entityName": "LR",
+                "entityUri": null
+              },
+              {
+                "entityId": "56",
+                "entityType": "Role",
+                "entityName": "TR",
+                "entityUri": null
+              },
+              {
+                "entityId": "45",
+                "entityType": "Role",
+                "entityName": "LP",
+                "entityUri": null
+              },
+              {
+                "entityId": "42",
+                "entityType": "Role",
+                "entityName": "TM",
+                "entityUri": null
+              }
+            ]
+          },
+          {
+            "documentId": "GUID",
+            "titleWithIndex": "Borrower Consent",
+            "applicationName": "Paul and Alice Testco",
+            "milestoneId": "Qualification",
+            "webCenterAllowed": true,
+            "tpoAllowed": true,
+            "thirdPartyAllowed": true,
+            "isRequested": false,
+            "requestedBy": "",
+            "isRerequested": false,
+            "rerequestedBy": "",
+            "daysDue": 0,
+            "isReceived": true,
+            "receivedBy": "jjohn",
+            "daysTillExpire": 0,
+            "isReviewed": false,
+            "reviewedBy": "",
+            "isReadyForUw": false,
+            "readyForUwBy": "",
+            "isReadyToShip": false,
+            "readyToShipBy": "",
+            "dateExpires": "0001-01-01T00:00:00Z",
+            "createdBy": "jjohn",
+            "dateCreated": "2017-08-24T20:09:16Z",
+            "title": "Borrower Consent",
+            "description": "",
+            "requestedFrom": "",
+            "applicationId": "_borrower1",
+            "emnSignature": "",
+            "status": "received",
+            "statusDate": "2017-08-24T20:09:56Z",
+            "dateReceived": "2017-08-24T20:09:56Z",
+            "comments": [],
+            "attachments": [
+              {
+                "entityId": "Attachment-GUID.pdf",
+                "entityType": "attachment",
+                "entityName": "Signed4506TForm.pdf",
+                "entityUri": "/v1/loans/GUID/attachments/Attachment-GUID.pdf"
+              },
+              {
+                "entityId": "Attachment-GUID.pdf",
+                "entityType": "attachment",
+                "entityName": "CreditReport.pdf",
+                "entityUri": "/v1/loans/GUID/attachments/Attachment-GUID.pdf"
+              }
+            ],
+            "roles": [
+              {
+                "entityId": "1",
+                "entityType": "Role",
+                "entityName": "LO",
+                "entityUri": null
+              },
+              {
+                "entityId": "16",
+                "entityType": "Role",
+                "entityName": "ZZ",
+                "entityUri": null
+              },
+              {
+                "entityId": "33",
+                "entityType": "Role",
+                "entityName": "CZ",
+                "entityUri": null
+              },
+              {
+                "entityId": "37",
+                "entityType": "Role",
+                "entityName": "JW",
+                "entityUri": null
+              },
+              {
+                "entityId": "38",
+                "entityType": "Role",
+                "entityName": "T1",
+                "entityUri": null
+              },
+              {
+                "entityId": "39",
+                "entityType": "Role",
+                "entityName": "TR",
+                "entityUri": null
+              },
+              {
+                "entityId": "44",
+                "entityType": "Role",
+                "entityName": "LO",
+                "entityUri": null
+              },
+              {
+                "entityId": "48",
+                "entityType": "Role",
+                "entityName": "sr",
+                "entityUri": null
+              },
+              {
+                "entityId": "52",
+                "entityType": "Role",
+                "entityName": "LR",
+                "entityUri": null
+              },
+              {
+                "entityId": "56",
+                "entityType": "Role",
+                "entityName": "TR",
+                "entityUri": null
+              },
+              {
+                "entityId": "45",
+                "entityType": "Role",
+                "entityName": "LP",
+                "entityUri": null
+              },
+              {
+                "entityId": "42",
+                "entityType": "Role",
+                "entityName": "TM",
+                "entityUri": null
+              }
+            ]
+          }
+]
+      },
+      {
+        "name": "LOAN_PURPOSE",
+        "list": [
+          {
+            "id": 1,
+            "val": "Construction",
+            "desc": "Construction"
+          },
+          {
+            "id": 2,
+            "val": "Construction Permanent",
+            "desc": "Construction Permanent"
+          },
+          {
+            "id": 3,
+            "val": "Purchase",
+            "desc": "Purchase"
+          },
+          {
+            "id": 4,
+            "val": "Refinance",
+            "desc": "Refinance"
+          },
+          {
+            "id": 5,
+            "val": "Second Mortgage",
+            "desc": "Second Mortgage"
+          },
+          {
+            "id": 6,
+            "val": "Other",
+            "desc": "Other"
+          }
+        ]
+      }     
+    ]
+  }
+}

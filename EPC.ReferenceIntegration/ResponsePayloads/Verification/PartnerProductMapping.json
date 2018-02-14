@@ -1,0 +1,20 @@
+{
+	"products": [
+		{
+			"name": "4506-T Direct Transcript 1040",
+			"code": "transcript1040"
+		}, {
+			"name": "4506-T Direct Business Transcript 1065",
+			"code": "transcript1065"
+		}, {
+			"name": "4506-T Direct Business Transcript 1120",
+			"code": "transcript1120"
+		}, {
+			"name": "4506-T Direct W2",
+			"code": "directW2"
+		}, {
+			"name": "4506-T Direct 1099",
+			"code": "transcript1099"
+		}
+	]
+}

@@ -51,7 +51,7 @@ namespace EPC.ReferenceIntegration.DataStore
         /// This method will add a Transaction into the Cache object if it does not exist and update the value if it exists
         /// </summary>
         /// <param name="value"></param>
-        public void Add(OrderInformation value)
+        public void Add(OrderInformation value, bool IsMorethanOneOrderPerTrans = false)
         {
             // if the cache does not contain the transaction then add the transaction in the cache
             if(_Cache != null && value != null)
@@ -61,7 +61,7 @@ namespace EPC.ReferenceIntegration.DataStore
                 itemIndex = _Cache.FindIndex(x => x.OrderId == value.OrderId);
 
                 // if the cache doesn't contain an order with the same order id then search with transaction Id
-                if (existingOrder == null)
+                if (existingOrder == null && !IsMorethanOneOrderPerTrans)
                 {
                     existingOrder = _Cache.FirstOrDefault(x => x.TransactionId == value.TransactionId);
                     itemIndex = _Cache.FindIndex(x => x.TransactionId == value.TransactionId);

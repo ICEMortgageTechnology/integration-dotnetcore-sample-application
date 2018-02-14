@@ -66,10 +66,8 @@ namespace EPC.ReferenceIntegration.Wrappers
                     // Executing the Partner API Request
                     var response = HttpCommunicationHelper.ExecuteRequest(partnerAPIHeader, _AppSettings.PartnerAPI.EndPoint, partnerAPIRequestURI, RestSharp.Method.GET, "");
 
-                    if (response != null && response.StatusCode == HttpStatusCode.OK)
-                    {
+                    if (response != null)
                         originData = JObject.Parse(response.Content);
-                    }
 
                     _Logger.LogInformation("[PartnerAPIWrapper] - Get Origin - Transaction Id - " + transactionId);
                     _Logger.LogInformation("[PartnerAPIWrapper] - Get Origin - Response - " + originData);
@@ -111,13 +109,50 @@ namespace EPC.ReferenceIntegration.Wrappers
                     _Logger.LogInformation("[PartnerAPIWrapper] - CreateRequest - Post Data - " + JObject.Parse(uiData).ToString(Formatting.Indented));
 
                     // Executing the Partner API Request
-                    var response = HttpCommunicationHelper.ExecuteRequest(partnerAPIHeader, _AppSettings.PartnerAPI.EndPoint, partnerAPIRequestURI, RestSharp.Method.POST, uiData);                    
+                    var response = HttpCommunicationHelper.ExecuteRequest(partnerAPIHeader, _AppSettings.PartnerAPI.EndPoint, partnerAPIRequestURI, RestSharp.Method.POST, uiData);
                 }
             }
             catch (Exception ex)
             {
                 _Logger.LogError("[PartnerAPIWrapper] - CreateRequest - Exception - " + ex.Message);
                 _Logger.LogError("[PartnerAPIWrapper] - CreateRequest - StackTrace - " + ex.StackTrace);
+            }
+        }
+
+        /// <summary>
+        /// This method will call the Patch Request of Partner API
+        /// </summary>
+        /// <param name="uiData"></param>
+        /// <param name="transactionId"></param>
+        public void UpdateRequest(string uiData, string transactionId)
+        {
+            try
+            {
+                _Logger.LogInformation("[PartnerAPIWrapper] - UpdateRequest - Before Get OAuthToken - ");
+
+                // Getting the OAuth Access Token
+                var oAuthToken = GetPartnerOAuthToken();
+
+                if (oAuthToken.TokenString != null)
+                {
+                    _Logger.LogInformation("[PartnerAPIWrapper] - UpdateRequest - OAuthToken is not null - ");
+
+                    // replacing transactionId in the URL
+                    var partnerAPIRequestURI = _AppSettings.PartnerAPI.RequestURI.Replace("{{transactionId}}", transactionId) + "/attachments";
+                    var partnerAPIHeader = GetHeaderForPartnerAPI(oAuthToken.TokenString);
+
+                    _Logger.LogInformation("[PartnerAPIWrapper] - UpdateRequest - Before Execute Request - ");
+
+                    _Logger.LogInformation("[PartnerAPIWrapper] - UpdateRequest - Post Data - " + JObject.Parse(uiData).ToString(Formatting.Indented));
+
+                    // Executing the Partner API Request
+                    var response = HttpCommunicationHelper.ExecuteRequest(partnerAPIHeader, _AppSettings.PartnerAPI.EndPoint, partnerAPIRequestURI, RestSharp.Method.POST, uiData);
+                }
+            }
+            catch (Exception ex)
+            {
+                _Logger.LogError("[PartnerAPIWrapper] - UpdateRequest - Exception - " + ex.Message);
+                _Logger.LogError("[PartnerAPIWrapper] - UpdateRequest - StackTrace - " + ex.StackTrace);
             }
         }
 
@@ -193,7 +228,7 @@ namespace EPC.ReferenceIntegration.Wrappers
                     var partnerAPIHeader = GetHeaderForPartnerAPI(oAuthToken.TokenString);
 
                     _Logger.LogInformation("[PartnerAPIWrapper] - CreateResponse - Before Execute Request - ");
-                    
+
                     // Adding the response in log
                     _Logger.LogInformation("[PartnerAPIWrapper] - CreateResponse - Post Data - " + JObject.Parse(responseData).ToString(Formatting.Indented));
 
@@ -299,6 +334,132 @@ namespace EPC.ReferenceIntegration.Wrappers
             }
 
             return uploadResponse;
+        }
+        /// <summary>
+        /// Exchange a message over a given transaction. Calls the messaging API - Partner POST call.
+        /// </summary>
+        /// <param name="transactionId">Transaction ID of the transaction you are exchanging a message over. </param>
+        /// <param name="body">Body of your message. Example:
+        /// {
+        ///      "text":"When can we expect a response?",
+        ///      "senderName":"Robin Williams"
+        /// }
+        /// </param>
+        /// <returns>A boolean indicating if your upload was successful or not. Upload can fail for several reasons - invalid transaction ID, malformed payload.
+        /// If successful, a webhook will be shot to the lender.
+        /// </returns>
+        public bool PostMessage(string transactionId, string body)
+        {
+            bool uploadResponse = false;
+            var oAuthToken = GetPartnerOAuthToken();
+
+            try
+            {
+                var partnerAPIRequestURI = _AppSettings.PartnerAPI.MessageURI.Replace("{{transactionId}}", transactionId);
+                var partnerAPIHeader = GetHeaderForPartnerAPI(oAuthToken.TokenString);
+
+                _Logger.LogInformation("[PartnerAPIWrapper] - Post Message - Before Execute Request - ");
+
+                // Executing the Partner API Request
+                var response = HttpCommunicationHelper.ExecuteRequest(partnerAPIHeader, _AppSettings.PartnerAPI.EndPoint, partnerAPIRequestURI, RestSharp.Method.POST, body);
+
+                if (response.StatusCode == HttpStatusCode.Created)
+                {
+                    uploadResponse = true;
+                }
+
+                _Logger.LogInformation("[PartnerAPIWrapper] - UploadFilesToEFolder - Response Content - " + response.Content);
+            }
+            catch (Exception ex)
+            {
+                _Logger.LogError("[PartnerAPIWrapper] - UploadFilesToEFolder - Exception - " + ex.Message);
+                _Logger.LogError("[PartnerAPIWrapper] - UploadFilesToEFolder - StackTrace - " + ex.StackTrace);
+            }
+
+            return uploadResponse;
+        }
+        /// <summary>
+        /// Retrieve a specific message over a transaction. You can retrieve your own messages, but you'll usually be retrieving the lender's messages.
+        /// </summary>
+        /// <param name="transactionId">Transaction ID of the transaction you are exchanging a message over.</param>
+        /// <param name="messageId">Unique message ID. Message IDs are located in the location header of the POST response.</param>
+        /// <returns>A JObject passed to the MessageController encoding the object. It will look similar to the POST message body, with additional metadata attached.</returns>
+        public JObject GetMessage(string transactionId, string messageId)
+        {
+            JObject messageObject = null;
+            try
+            {
+                var authToken = GetPartnerOAuthToken();
+                if (authToken.TokenString != null)
+                {
+                    _Logger.LogInformation("[PartnerAPIWrapper] - GetAllMessages - OAuthToken is not null - ");
+
+                    // replacing transactionId in the URL
+                    var partnerAPIMessageURI = _AppSettings.PartnerAPI.MessageURI_Individual.Replace("{{transactionId}}", transactionId);
+                    partnerAPIMessageURI = partnerAPIMessageURI.Replace("{{messageId}}", messageId);
+                    var partnerAPIHeader = GetHeaderForPartnerAPI(authToken.TokenString);
+
+                    _Logger.LogInformation("[PartnerAPIWrapper] - GetAllMessages - Before Execute Request - ");
+
+                    // Executing the Partner API Request
+                    var response = HttpCommunicationHelper.ExecuteRequest(partnerAPIHeader, _AppSettings.PartnerAPI.EndPoint, partnerAPIMessageURI, RestSharp.Method.GET, "");
+
+                    if (response != null && response.StatusCode == HttpStatusCode.OK)
+                    {
+                        messageObject = new JObject();
+                        messageObject = JObject.Parse(response.Content);
+                    }
+
+                    _Logger.LogInformation("[PartnerAPIWrapper] - GetAllMessages - Request Data - " + messageObject);
+                }
+            }
+            catch (Exception ex)
+            {
+                _Logger.LogError("[PartnerAPIWrapper] - GetAllMessages - Exception - " + ex.Message);
+                _Logger.LogError("[PartnerAPIWrapper] - GetAllMessages - StackTrace - " + ex.StackTrace);
+            }
+            return messageObject;
+        }
+
+        /// <summary>
+        /// Retrieve all messages exchanged over a given transaction.
+        /// </summary>
+        /// <param name="transactionId">Transaction ID of the transaction you are exchanging a message over.</param>
+        /// <returns>A JObject of a JArray that contains the whole transaction log.</returns>
+        public JObject GetAllMessages(string transactionId)
+        {
+            JObject messageObject = null;
+            try
+            {
+                var authToken = GetPartnerOAuthToken();
+                if (authToken.TokenString != null)
+                {
+                    _Logger.LogInformation("[PartnerAPIWrapper] - GetAllMessages - OAuthToken is not null - ");
+
+                    // replacing transactionId in the URL
+                    var partnerAPIMessageURI = _AppSettings.PartnerAPI.MessageURI.Replace("{{transactionId}}", transactionId);
+                    var partnerAPIHeader = GetHeaderForPartnerAPI(authToken.TokenString);
+
+                    _Logger.LogInformation("[PartnerAPIWrapper] - GetAllMessages - Before Execute Request - ");
+
+                    // Executing the Partner API Request
+                    var response = HttpCommunicationHelper.ExecuteRequest(partnerAPIHeader, _AppSettings.PartnerAPI.EndPoint, partnerAPIMessageURI, RestSharp.Method.GET, "");
+
+                    if (response != null && response.StatusCode == HttpStatusCode.OK)
+                    {
+                        messageObject = new JObject();
+                        messageObject = JObject.Parse(response.Content);
+                    }
+
+                    _Logger.LogInformation("[PartnerAPIWrapper] - GetAllMessages - Request Data - " + messageObject);
+                }
+            }
+            catch (Exception ex)
+            {
+                _Logger.LogError("[PartnerAPIWrapper] - GetAllMessages - Exception - " + ex.Message);
+                _Logger.LogError("[PartnerAPIWrapper] - GetAllMessages - StackTrace - " + ex.StackTrace);
+            }
+            return messageObject;
         }
 
         #region " Private Methods "

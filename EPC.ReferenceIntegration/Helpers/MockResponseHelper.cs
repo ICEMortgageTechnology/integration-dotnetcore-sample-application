@@ -18,20 +18,30 @@ namespace EPC.ReferenceIntegration.Helpers
         private static ILogger _Logger;
         private static ILoggerFactory _Factory;
         private static string _ClassName = string.Empty;
-        static MockResponseHelper()
+        private AppSettings _AppSettings = null;
+        private static string _IntegrationType = "Appraisal"; // By default our Integration Type would be Appraisal meaning the Reference Integration will always return responses for Appraisal Type.
+
+
+        public MockResponseHelper(AppSettings appSettings)
         {
             _Factory = LogHelper.LoggerFactory;
             _Logger = _Factory.CreateLogger("MockResponseHelper");
             _ClassName = "MockResponseHelper";
+
+            _AppSettings = appSettings;
+
+            // set the integration type to the one defined in the config
+            if (_AppSettings != null && _AppSettings.IntegrationType != null)
+                _IntegrationType = _AppSettings.IntegrationType;
         }
 
         /// <summary>
         /// This method result the UI date in Json Formate to teh caller
         /// </summary>
         /// <returns>JObject</returns>
-        public static JObject GetUIDataResponse()
+        public JObject GetUIDataResponse()
         {
-            var mockFilePath = System.IO.Path.GetFullPath(System.IO.Directory.GetCurrentDirectory() + @"\ResponsePayloads\GetUIDataResponse.json");
+            var mockFilePath = System.IO.Path.GetFullPath(System.IO.Directory.GetCurrentDirectory() + @"\ResponsePayloads\" + _IntegrationType + @"\GetUIDataResponse.json");
             var jsonString = System.IO.File.ReadAllText(mockFilePath);
             JObject mockJsonObject = null;
 
@@ -64,7 +74,7 @@ namespace EPC.ReferenceIntegration.Helpers
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public static JObject ValidateLoanData(JObject data)
+        public JObject ValidateLoanData(JObject data)
         {
             JObject validationInfo = new JObject();
 
@@ -72,14 +82,14 @@ namespace EPC.ReferenceIntegration.Helpers
             {
                 // Implement partner specific validation here
 
-                var mockSuccessResponsePath = System.IO.Path.GetFullPath(System.IO.Directory.GetCurrentDirectory() + @"\ResponsePayloads\PartnerValidationSuccess.json");
+                var mockSuccessResponsePath = System.IO.Path.GetFullPath(System.IO.Directory.GetCurrentDirectory() + @"\ResponsePayloads\" + _IntegrationType + @"\PartnerValidationSuccess.json");
                 var successResponse = System.IO.File.ReadAllText(mockSuccessResponsePath);
 
                 validationInfo.Add("success", JToken.FromObject(successResponse));
             }
             else
             {
-                var mockErrorResponsePath = System.IO.Path.GetFullPath(System.IO.Directory.GetCurrentDirectory() + @"\ResponsePayloads\PartnerValidationError.json");
+                var mockErrorResponsePath = System.IO.Path.GetFullPath(System.IO.Directory.GetCurrentDirectory() + @"\ResponsePayloads\" + _IntegrationType + @"\PartnerValidationError.json");
                 var errorResponse = System.IO.File.ReadAllText(mockErrorResponsePath);
 
                 validationInfo.Add("error", JToken.FromObject(errorResponse));
@@ -91,10 +101,12 @@ namespace EPC.ReferenceIntegration.Helpers
         /// <summary>
         /// This method will return the Mock response for Check status
         /// </summary>
+        /// <param name="transactionId"></param>
+        /// <param name="orderId"></param>
         /// <returns></returns>
-        public static JObject GetResponseForCheckStatus(string transactionId, string orderId, AppSettings appSettings)
+        public JObject GetResponseForCheckStatus(string transactionId, string orderId)
         {
-            var mockFilePath = System.IO.Path.GetFullPath(System.IO.Directory.GetCurrentDirectory() + @"\ResponsePayloads\PartnerOrderFulFilledResponse.json");
+            var mockFilePath = System.IO.Path.GetFullPath(System.IO.Directory.GetCurrentDirectory() + @"\ResponsePayloads\" + _IntegrationType + @"\PartnerOrderFulFilledResponse.json");
             var jsonString = System.IO.File.ReadAllText(mockFilePath);
             JObject mockJsonObject = null;
 
@@ -109,7 +121,7 @@ namespace EPC.ReferenceIntegration.Helpers
                 {
                     _Logger.LogInformation("[MockResponseHelper] - SubmitResponseToPartnerAPI - response is not null - ");
 
-                    if (transactionLoanInformation != null && response.SelectToken("status").ToString() == "Completed" && response.SelectToken("$.result") != null)
+                    if (response.SelectToken("status").ToString() == "Completed" && response.SelectToken("$.result") != null)
                     {
                         _Logger.LogInformation("[MockResponseHelper] - SubmitResponseToPartnerAPI - TransactionLoanInformation is not null - ");
 
@@ -118,38 +130,42 @@ namespace EPC.ReferenceIntegration.Helpers
                         // build payload for Partner API Create Response
                         dynamic responsePayload = new JObject();
 
-                        dynamic loanObject = new JObject();
+                        if (result != null)
+                        {
+                            _Logger.LogInformation("[MockResponseHelper] - SubmitResponseToPartnerAPI - Before Getting epcResponse from Payload. ");
 
-                        loanObject.VaLoanData = MockResponseHelper.GetVALoanData();
-                        loanObject.UnderwriterSummary = MockResponseHelper.GetUnderWritterSummaryData();
-                        loanObject.Uldd = MockResponseHelper.GetUIDData();
-                        loanObject.Tsum = MockResponseHelper.GetTSumData();
-                        loanObject.Property = MockResponseHelper.GetPropertyData();
-                        loanObject.HudLoanData = MockResponseHelper.GetHUDLoanData();
-                        loanObject.Hmda = MockResponseHelper.GetHMDAData();
-                        loanObject.Fees = MockResponseHelper.GetLoanFeesData();
-                        loanObject.Contacts = MockResponseHelper.GetLoanContactsData();
-                        loanObject.CommitmentTerms = MockResponseHelper.GetCommitmentTermsData();
-                        loanObject.ClosingDocument = MockResponseHelper.GetClosingDocumentData();
-                        loanObject.PropertyAppraisedValueAmount = 566000;
+                            // Gettting dynamic response from Payload. 
 
-                        dynamic orders = new JArray();
-                        dynamic order = new JObject();
+                            if(_IntegrationType == "Appraisal")
+                            {
+                                dynamic epcResponse = result.SelectToken("epcResponse");
+                                responsePayload = epcResponse;
+                            }
 
-                        //var orderCompletionDate = DateTime.Now.ToUniversalTime();
-                        var orderCompletionDate = DateTime.Now;
+                            if (responsePayload != null)
+                            {
+                                dynamic orders = new JArray();
+                                dynamic order = new JObject();
 
-                        order.id = orderId;
-                        order.orderDateTime = orderCompletionDate.ToString("yyyy-MM-ddTHH:mm-ss:ff");
-                        order.orderStatus = response["status"];
-                        order.orderMessage = result["orderMessage"];
-                        order.product = transactionLoanInformation.ProductName;
-                        order.documents = GetDocumentsFromResponse(response, transactionId, appSettings);
+                                //var orderCompletionDate = DateTime.Now.ToUniversalTime();
+                                var orderCompletionDate = DateTime.Now;
 
-                        orders.Add(order);
+                                order.id = orderId;
+                                order.orderDateTime = orderCompletionDate.ToString("yyyy-MM-ddTHH:mm-ss:ff");
+                                order.orderStatus = response["status"];
+                                order.orderMessage = result["orderMessage"];
 
-                        responsePayload.loanData = loanObject;
-                        responsePayload.orders = orders;
+                                if (transactionLoanInformation != null)
+                                    order.product = transactionLoanInformation.ProductName;
+                                else
+                                    order.product = ""; //TODO
+
+                                order.documents = GetDocumentsFromResponse(response, transactionId, this._AppSettings);
+
+                                orders.Add(order);
+                                responsePayload.orders = orders;
+                            }
+                        }
 
                         mockJsonObject = responsePayload;
                     }
@@ -192,7 +208,10 @@ namespace EPC.ReferenceIntegration.Helpers
                 {
                     _Logger.LogInformation("[MockResponseHelper] - GetDocumentsFromResponse - Order response is not null ");
 
-                    var embeddedFiles = orderResponse.SelectToken("$.result.orderResponse.REPORT.EMBEDDED_FILES");
+                    var embeddedFiles = orderResponse.SelectToken("$.result.orderResponse.EMBEDDED_FILES");
+
+                    if(_IntegrationType != "Appraisal")
+                        embeddedFiles = orderResponse.SelectToken("$.result.orderResponse.REPORT.EMBEDDED_FILES");
 
                     if (embeddedFiles != null && embeddedFiles.HasValues)
                     {
@@ -235,7 +254,7 @@ namespace EPC.ReferenceIntegration.Helpers
                                 _Logger.LogInformation("[MockResponseHelper] - GetDocumentsFromResponse - MediaServer response is not null ");
 
                                 dynamic document = new JObject();
-                                document.name = "Appraisal Report";
+                                document.name = _IntegrationType + " Report";
                                 document.attachments = mediaServerResponse;
                                 documentsResponse.Add(document);
                             }
@@ -535,6 +554,6 @@ namespace EPC.ReferenceIntegration.Helpers
         }
 
         #endregion
-        
+
     }
 }

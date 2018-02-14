@@ -23,6 +23,8 @@ namespace EPC.ReferenceIntegration.Wrappers.Interfaces
         /// <param name="transactionId"></param>
         void CreateRequest(string uiData, string transactionId);
 
+        void UpdateRequest(string uiData, string transactionId);
+
         /// <summary>
         /// This method will do the GetRequest call to the Partner API
         /// </summary>

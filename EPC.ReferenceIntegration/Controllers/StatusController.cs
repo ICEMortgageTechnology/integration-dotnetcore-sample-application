@@ -82,9 +82,10 @@ namespace EPC.ReferenceIntegration.Controllers
             try
             {
                 _Logger.LogInformation("[StatusController] - POST - api/status - [STARTS]");
-
+                
                 // partner will check their systems/repository to check the status of the current order and return the documents if it is completed.
-                var checkStatusResponse = MockResponseHelper.GetResponseForCheckStatus(transactionId, orderId, _AppSettings);
+                var mockResponseHelper = new MockResponseHelper(_AppSettings);
+                var checkStatusResponse = mockResponseHelper.GetResponseForCheckStatus(transactionId, orderId);
 
                 if (checkStatusResponse != null)
                 {

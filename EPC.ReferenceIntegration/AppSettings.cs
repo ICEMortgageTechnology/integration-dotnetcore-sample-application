@@ -14,6 +14,7 @@ namespace EPC.ReferenceIntegration
         public string ClientSecret { get; set; }
         public string Scope { get; set; }
         public PartnerAPI PartnerAPI { get; set; }
+        public string IntegrationType { get; set; }
     }
 
     public class PartnerAPI
@@ -23,5 +24,7 @@ namespace EPC.ReferenceIntegration
         public string RequestURI { get; set; }
         public string ResponseURI { get; set; }
         public string DropFilesURI { get; set; }
+        public string MessageURI { get; set; }
+        public string MessageURI_Individual { get; set; }
     }
 }
